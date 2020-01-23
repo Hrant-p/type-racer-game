@@ -27,6 +27,8 @@ module.exports = {
     }],
     "react/jsx-filename-extension": [0],
     "react/prefer-stateless-function": "warn",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "arrow-parens": "off",
+    "react/jsx-fragments": 0
   }
 };
