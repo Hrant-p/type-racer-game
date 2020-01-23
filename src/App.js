@@ -8,6 +8,7 @@ import SignUp from './container/SignUp/SignUp';
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import About from './components/About/About';
+import NotFound from './components/NotFound/NotFound';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/sign-up" component={SignUp} exact />
         <Route path="/game" component={GamePage} exact />
         <Route path="/about" component={About} exact />
+        <Route component={NotFound} />
       </Switch>
       <Footer />
     </BrowserRouter>

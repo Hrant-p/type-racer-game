@@ -16,7 +16,7 @@ const Login = props => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData.login, formData.password);
+    console.log(e);
   };
   const { login, password } = formData;
 
@@ -44,7 +44,7 @@ const Login = props => {
             required
           />
           <input
-            type="button"
+            type="submit"
             value="Login"
             className="btn-submit"
           />
