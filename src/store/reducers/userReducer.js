@@ -3,8 +3,8 @@ import { loadingType, userTypes } from '../actions/types';
 
 const initialState = fromJS({
   allUsers: {},
-  isLoading: false,
   isAuth: false,
+  isLoading: false,
 });
 
 export default (state = initialState, { type, payload }) => {
