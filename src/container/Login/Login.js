@@ -4,7 +4,7 @@ import DivWithBackground from '../../components/DivWithBackground/DivWithBackgro
 import img from '../../img/coder.jpeg';
 import './Login.scss';
 
-const Login = props => {
+const Login = (props) => {
   const [formData, setFormData] = useState({
     login: '',
     password: '',
