@@ -1,4 +1,4 @@
-import { loadingType, userTypes } from './types';
+import { errorType, loadingType, userTypes } from './types';
 
 export function getAllUsersRequest() {
   return {
@@ -32,5 +32,12 @@ export function setLoadingState(isLoading) {
   return {
     type: loadingType.CHANGE_LOADING_STATE,
     payload: { isLoading },
+  };
+}
+
+export function setErrorState(error) {
+  return {
+    type: errorType.SET_ERROR_STATE,
+    payload: { error },
   };
 }

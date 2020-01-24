@@ -11,3 +11,7 @@ export const textTypes = {};
 export const loadingType = {
   CHANGE_LOADING_STATE: 'CHANGE_LOADING_STATE',
 };
+
+export const errorType = {
+  SET_ERROR_STATE: 'SET_ERROR_STATE',
+};
