@@ -1,3 +1,13 @@
-export const userTypes = {};
+export const userTypes = {
+  GET_USERS: 'GET_USERS',
+  GET_USERS_SUCCEED: 'GET_USERS_SUCCEED',
+  POST_CERTAIN_USER: 'POST_CERTAIN_USER',
+  POST_CERTAIN_USER_SUCCEED: 'POST_CERTAIN_USER_SUCCEED',
+  SET_AUTHENTICATION_STATE: 'SET_AUTHENTICATION_STATE',
+};
 
 export const textTypes = {};
+
+export const loadingType = {
+  CHANGE_LOADING_STATE: 'CHANGE_LOADING_STATE',
+};
