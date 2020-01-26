@@ -2,22 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { useHistory } from 'react-router';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/coder.jpeg';
 import './Login.scss';
 import {
-  allUsersSelector, errorSelector, isAuthSelector, isLoadingSelector
+  currentUserSelector, errorSelector, isAuthSelector, isLoadingSelector,
 } from '../../store/selectors/userSelector';
-import { getAllUsersRequest } from '../../store/actions/userActionCreators';
+import { userLoginRequest } from '../../store/actions/userActionCreators';
 import Spinner from '../../components/Spinner/Spinner';
 
 const Login = ({
-  getAllUsersActionCreator, allUsers, isLoading, isAuth, error,
+  userLoginActionCreator,
+  user,
+  isLoading,
+  isAuth,
+  error,
 }) => {
-  const [formData, setFormData] = useState({
-    login: '',
-    password: '',
-  });
+
+  const history = useHistory();
+  const [formData, setFormData] = useState({ login: '', password: '' });
 
   const handleChange = ({ currentTarget: { name, value } }) => {
     setFormData({ ...formData, [name]: value });
@@ -27,13 +31,11 @@ const Login = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    // const userId = allUsers.getIn([login, 'login']);
-    // sessionStorage.setItem('id', userId);
+    userLoginActionCreator(login, password, history);
+    if (!user.size) {
+      setFormData({ login: '', password: '' });
+    }
   };
-
-  useEffect(() => {
-    getAllUsersActionCreator();
-  }, [getAllUsersActionCreator]);
 
   return (
     <DivWithBackground bgImage={img}>
@@ -73,14 +75,14 @@ const Login = ({
 Login.propTypes = {};
 
 const mapStateToProps = state => ({
-  allUsers: allUsersSelector(state),
+  user: currentUserSelector(state),
   isAuth: isAuthSelector(state),
   isLoading: isLoadingSelector(state),
-  error: errorSelector(state)
+  error: errorSelector(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getAllUsersActionCreator: getAllUsersRequest,
+  userLoginActionCreator: userLoginRequest,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

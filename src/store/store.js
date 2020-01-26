@@ -6,11 +6,12 @@ import reducer from './reducers';
 import middleware from './middlewares';
 
 const sagaMiddleware = createSagaMiddleware();
+const allMiddlewares = [sagaMiddleware];
 
 const store = createStore(
   reducer,
   Map(),
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  composeWithDevTools(applyMiddleware(...allMiddlewares)),
 );
 
 sagaMiddleware.run(middleware);

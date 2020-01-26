@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import { errorType, loadingType, userTypes } from '../actions/types';
 
 const initialState = fromJS({
-  allUsers: {},
+  user: {},
   isAuth: false,
   isLoading: false,
   error: null,
@@ -10,8 +10,8 @@ const initialState = fromJS({
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case userTypes.GET_USERS_SUCCEED:
-      return state.set('allUsers', fromJS(payload.data));
+    case userTypes.USER_LOGIN_SUCCEED:
+      return state.set('user', fromJS(payload.data));
     case userTypes.SET_AUTHENTICATION_STATE:
       return state.set('isAuth', fromJS(payload.isAuth));
     case loadingType.CHANGE_LOADING_STATE:

@@ -1,15 +1,15 @@
 import { errorType, loadingType, userTypes } from './types';
 
-export function getAllUsersRequest() {
+export function userLoginRequest(login, password, history) {
   return {
-    type: userTypes.GET_USERS,
-    payload: {},
+    type: userTypes.LOGIN_USER,
+    payload: { login, password, history },
   };
 }
 
-export function getAllUsersSucceed(data) {
+export function userLoginSucceed(data) {
   return {
-    type: userTypes.GET_USERS_SUCCEED,
+    type: userTypes.USER_LOGIN_SUCCEED,
     payload: { data },
   };
 }
