@@ -1,8 +1,8 @@
 export const userApi = {
-  url: 'http://myjson.com/api/bins/',
+  url: 'https://api.myjson.com/bins',
   id: 'vaqum',
 };
 
 export const baconIpsumApi = {
-  url: 'https://baconipsum.com/json-api/',
+  url: 'https://baconipsum.com/json-api',
 };

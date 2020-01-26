@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import {errorType, loadingType, userTypes} from '../actions/types';
+import { errorType, loadingType, userTypes } from '../actions/types';
 
 const initialState = fromJS({
   allUsers: {},

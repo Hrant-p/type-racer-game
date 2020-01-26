@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/coder.jpeg';
 import './Login.scss';
+import {
+  allUsersSelector, errorSelector, isAuthSelector, isLoadingSelector
+} from '../../store/selectors/userSelector';
+import { getAllUsersRequest } from '../../store/actions/userActionCreators';
+import Spinner from '../../components/Spinner/Spinner';
 
-const Login = (props) => {
+const Login = ({
+  getAllUsersActionCreator, allUsers, isLoading, isAuth, error,
+}) => {
   const [formData, setFormData] = useState({
     login: '',
     password: '',
@@ -14,15 +23,22 @@ const Login = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    console.log(e);
-  };
   const { login, password } = formData;
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    // const userId = allUsers.getIn([login, 'login']);
+    // sessionStorage.setItem('id', userId);
+  };
+
+  useEffect(() => {
+    getAllUsersActionCreator();
+  }, [getAllUsersActionCreator]);
 
   return (
     <DivWithBackground bgImage={img}>
       <div className="login-area">
+        {isLoading && <Spinner />}
         <form onSubmit={e => handleSubmit(e)}>
           <input
             className="login-field"
@@ -56,4 +72,15 @@ const Login = (props) => {
 
 Login.propTypes = {};
 
-export default Login;
+const mapStateToProps = state => ({
+  allUsers: allUsersSelector(state),
+  isAuth: isAuthSelector(state),
+  isLoading: isLoadingSelector(state),
+  error: errorSelector(state)
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getAllUsersActionCreator: getAllUsersRequest,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

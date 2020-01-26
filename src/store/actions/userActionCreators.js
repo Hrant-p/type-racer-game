@@ -10,7 +10,7 @@ export function getAllUsersRequest() {
 export function getAllUsersSucceed(data) {
   return {
     type: userTypes.GET_USERS_SUCCEED,
-    payload: data,
+    payload: { data },
   };
 }
 

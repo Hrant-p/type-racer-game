@@ -29,6 +29,7 @@ module.exports = {
     "react/prefer-stateless-function": "warn",
     "import/prefer-default-export": "off",
     "arrow-parens": "off",
-    "react/jsx-fragments": 0
+    "react/jsx-fragments": 0,
+    "react/prop-types": 0
   }
 };

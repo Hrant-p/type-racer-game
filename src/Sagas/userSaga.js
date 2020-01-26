@@ -1,8 +1,9 @@
 import {
   all, call, put, takeLatest,
 } from 'redux-saga/effects';
-
-import { getAllUsersSucceed, setErrorState, setLoadingState } from '../store/actions/userActionCreators';
+import {
+  getAllUsersSucceed, setAuthState, setErrorState, setLoadingState,
+} from '../store/actions/userActionCreators';
 import { userTypes } from '../store/actions/types';
 import { constructUrl } from '../API/helpers';
 import { request } from '../services/requestService';
@@ -21,6 +22,7 @@ function* getAllUsers() {
   } catch (e) {
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
+    console.log(e);
   }
 }
 
@@ -35,9 +37,12 @@ function* createNewUser({ payload: { newUser, history } }) {
     );
     history.push('./game-page');
     yield put(setLoadingState(false));
+    yield put(setAuthState(true));
   } catch (e) {
+    yield put(setAuthState(false));
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
+    console.log(e);
   }
 }
 
