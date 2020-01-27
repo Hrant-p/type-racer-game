@@ -30,6 +30,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "arrow-parens": "off",
     "react/jsx-fragments": 0,
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    // "react/require-default-props": 0
   }
 };

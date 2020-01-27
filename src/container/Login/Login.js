@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Redirect, useHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import Immutable from 'immutable';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
-import img from '../../img/coder.jpeg';
+import img from '../../img/coding2.jpg';
 import './Login.scss';
 import {
   alertSelector,
@@ -25,7 +26,6 @@ const Login = ({
   alert,
   error,
 }) => {
-  const history = useHistory();
   const [formData, setFormData] = useState({ login: '', password: '' });
 
   const handleChange = ({ currentTarget: { name, value } }) => {
@@ -37,9 +37,6 @@ const Login = ({
   const handleSubmit = e => {
     e.preventDefault();
     userLoginActionCreator(login, password);
-    if (!user.size) {
-      setFormData({ login: '', password: '' });
-    }
   };
 
   if (isAuth) {
@@ -50,9 +47,10 @@ const Login = ({
     <DivWithBackground bgImage={img}>
       {error && <p>{error}</p>}
       <div className="login-area">
-        {isLoading && <Spinner />}
-        {alert && <p>{alert}</p>}
         <form onSubmit={e => handleSubmit(e)}>
+          {isLoading && <Spinner />}
+          {alert && <p className="alert">{alert}</p>}
+          {alert && <p className="error">{error}</p>}
           <input
             className="login-field"
             type="email"
@@ -77,13 +75,29 @@ const Login = ({
             value="Login"
             className="btn-submit"
           />
+          <p className="">
+            {"Don't have an account? "}
+            <Link to="/registration">Sign Up</Link>
+          </p>
         </form>
       </div>
     </DivWithBackground>
   );
 };
 
-Login.propTypes = {};
+Login.propTypes = {
+  userLoginActionCreator: PropTypes.func.isRequired,
+  user: PropTypes.instanceOf(Immutable.Map).isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isAuth: PropTypes.bool.isRequired,
+  alert: PropTypes.string,
+  error: PropTypes.string,
+};
+
+Login.defaultProps = {
+  alert: null,
+  error: null,
+};
 
 const mapStateToProps = state => ({
   user: currentUserSelector(state),

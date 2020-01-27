@@ -6,15 +6,22 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/sign-up.JPG';
-import { createNewUserRequest, setAlert } from '../../store/actions/userActionCreators';
 import {
-  alertSelector, errorSelector, isAuthSelector, isLoadingSelector,
+  createNewUserRequest,
+  setAlert,
+} from '../../store/actions/userActionCreators';
+import {
+  alertSelector,
+  errorSelector,
+  isAuthSelector,
+  isLoadingSelector,
 } from '../../store/selectors/userSelector';
 import Spinner from '../../components/Spinner/Spinner';
 
 const SignUp = ({
   isAuth,
-  createNewUserActionCreator, setAlertActionCreator,
+  createNewUserActionCreator,
+  setAlertActionCreator,
   isLoading,
   alert,
   error,
@@ -36,8 +43,9 @@ const SignUp = ({
   const handleSubmit = e => {
     e.preventDefault();
     if (password !== password2) {
-      setAlertActionCreator('Password doesnt match');
+      setAlertActionCreator("Password doesn't match");
     } else {
+      setAlertActionCreator(null);
       const newUser = { nickname, login, password };
       createNewUserActionCreator(newUser);
     }
@@ -111,13 +119,20 @@ SignUp.propTypes = {
   isAuth: PropTypes.bool.isRequired,
   setAlertActionCreator: PropTypes.func.isRequired,
   createNewUserActionCreator: PropTypes.func.isRequired,
+  alert: PropTypes.string,
+  error: PropTypes.string,
+};
+
+SignUp.defaultProps = {
+  alert: null,
+  error: null,
 };
 
 const mapStateToProps = state => ({
+  isLoading: isLoadingSelector(state),
   isAuth: isAuthSelector(state),
   alert: alertSelector(state),
   error: errorSelector(state),
-  isLoading: isLoadingSelector(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
