@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import '../Login/Login.scss';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/sign-up.JPG';
+import { createNewUserRequest, setAlert } from '../../store/actions/userActionCreators';
+import {
+  alertSelector, errorSelector, isAuthSelector, isLoadingSelector,
+} from '../../store/selectors/userSelector';
+import Spinner from '../../components/Spinner/Spinner';
 
-const SignUp = props => {
+const SignUp = ({
+  isAuth,
+  createNewUserActionCreator, setAlertActionCreator,
+  isLoading,
+  alert,
+  error,
+}) => {
   const [formData, setFormData] = useState({
     nickname: '',
     login: '',
@@ -19,15 +33,27 @@ const SignUp = props => {
     nickname, login, password, password2,
   } = formData;
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log(nickname, login, password, password2);
+    if (password !== password2) {
+      setAlertActionCreator('Password doesnt match');
+    } else {
+      const newUser = { nickname, login, password };
+      createNewUserActionCreator(newUser);
+    }
   };
+
+  if (isAuth) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <DivWithBackground bgImage={img}>
       <div className="login-area">
         <form onSubmit={e => handleSubmit(e)}>
+          {isLoading && <Spinner />}
+          {alert && <p>{alert}</p>}
+          {error && <p>{error}</p>}
           <input
             className="login-field"
             type="text"
@@ -71,6 +97,10 @@ const SignUp = props => {
             value="Login"
             className="btn-submit"
           />
+          <p className="">
+            Already have an account?
+            <Link to="/login">Sign In</Link>
+          </p>
         </form>
       </div>
     </DivWithBackground>
@@ -78,7 +108,21 @@ const SignUp = props => {
 };
 
 SignUp.propTypes = {
-
+  isAuth: PropTypes.bool.isRequired,
+  setAlertActionCreator: PropTypes.func.isRequired,
+  createNewUserActionCreator: PropTypes.func.isRequired,
 };
 
-export default SignUp;
+const mapStateToProps = state => ({
+  isAuth: isAuthSelector(state),
+  alert: alertSelector(state),
+  error: errorSelector(state),
+  isLoading: isLoadingSelector(state),
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  createNewUserActionCreator: createNewUserRequest,
+  setAlertActionCreator: setAlert,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

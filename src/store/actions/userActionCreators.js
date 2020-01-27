@@ -1,9 +1,9 @@
 import { errorType, loadingType, userTypes } from './types';
 
-export function userLoginRequest(login, password, history) {
+export function userLoginRequest(login, password) {
   return {
     type: userTypes.LOGIN_USER,
-    payload: { login, password, history },
+    payload: { login, password },
   };
 }
 
@@ -14,10 +14,17 @@ export function userLoginSucceed(data) {
   };
 }
 
-export function createNewUserRequest(newUser, history) {
+export function createNewUserRequest(newUser) {
+  return {
+    type: userTypes.POST_CERTAIN_USER,
+    payload: { newUser },
+  };
+}
+
+export function createNewUserRequestSuccess() {
   return {
     type: userTypes.POST_CERTAIN_USER_SUCCEED,
-    payload: { newUser, history },
+    payload: {},
   };
 }
 

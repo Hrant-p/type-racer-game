@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/coder.jpeg';
 import './Login.scss';
@@ -35,14 +36,19 @@ const Login = ({
 
   const handleSubmit = e => {
     e.preventDefault();
-    userLoginActionCreator(login, password, history);
+    userLoginActionCreator(login, password);
     if (!user.size) {
       setFormData({ login: '', password: '' });
     }
   };
 
+  if (isAuth) {
+    return <Redirect to="/home" />;
+  }
+
   return (
     <DivWithBackground bgImage={img}>
+      {error && <p>{error}</p>}
       <div className="login-area">
         {isLoading && <Spinner />}
         {alert && <p>{alert}</p>}
