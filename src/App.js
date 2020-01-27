@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './container/PrivateRoute/PrivateRoute';
 import Home from './container/Home/Home';
 import Login from './container/Login/Login';
 import SignUp from './container/SignUp/SignUp';
@@ -14,7 +15,7 @@ const App = () => {
     <BrowserRouter>
       <Nav />
       <Switch>
-        <Route path="/home" component={Home} exact />
+        <PrivateRoute path="/home" component={Home} exact />
         <Route path="/(login||)" component={Login} exact />
         <Route path="/registration" component={SignUp} exact />
         <Route path="/about" component={About} exact />
