@@ -1,13 +1,19 @@
 import {
-  all, call, put, takeLatest,
+  all, call, put, takeLatest, delay,
 } from 'redux-saga/effects';
 import {
-  userLoginSucceed, setAuthState, setErrorState, setLoadingState,
+  userLoginSucceed, setAuthState, setErrorState, setLoadingState, setAlert, removeAlert,
 } from '../store/actions/userActionCreators';
 import { userTypes } from '../store/actions/types';
 import { constructUrl } from '../API/helpers';
 import { request } from '../services/requestService';
 import { userApi } from '../API/keysAndUrls';
+
+function* setAlertInfo(alert) {
+  yield put(setAlert(alert));
+  yield delay(3000);
+  yield put(removeAlert());
+}
 
 function* userLogin({ payload: { login, password, history } }) {
   try {
@@ -19,6 +25,7 @@ function* userLogin({ payload: { login, password, history } }) {
     );
     const result = yield data.find(item => item.login === login
         && item.password === password);
+    yield put(setLoadingState(false));
     if (result) {
       yield put(setAuthState(true));
       yield sessionStorage.setItem('id', login);
@@ -26,9 +33,10 @@ function* userLogin({ payload: { login, password, history } }) {
       yield put(userLoginSucceed({
         login: result.login, nickname, lastTypeResult,
       }));
-      yield history.push('/game');
+      yield history.push('/home');
+    } else {
+      yield setAlertInfo('Login or password is incorrect!');
     }
-    yield put(setLoadingState(false));
   } catch (e) {
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
@@ -46,8 +54,8 @@ function* createNewUser({ payload: { newUser, history } }) {
       newUser,
     );
     history.push('./game');
-    yield put(setLoadingState(false));
     yield put(setAuthState(true));
+    yield put(setLoadingState(false));
   } catch (e) {
     yield put(setAuthState(false));
     yield put(setLoadingState(false));

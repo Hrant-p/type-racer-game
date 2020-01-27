@@ -41,3 +41,17 @@ export function setErrorState(error) {
     payload: { error },
   };
 }
+
+export function setAlert(alert) {
+  return {
+    type: errorType.SET_ALERT,
+    payload: { alert },
+  };
+}
+
+export function removeAlert() {
+  return {
+    type: errorType.REMOVE_ALERT,
+    payload: {},
+  };
+}

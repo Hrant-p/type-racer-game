@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -7,7 +7,11 @@ import DivWithBackground from '../../components/DivWithBackground/DivWithBackgro
 import img from '../../img/coder.jpeg';
 import './Login.scss';
 import {
-  currentUserSelector, errorSelector, isAuthSelector, isLoadingSelector,
+  alertSelector,
+  currentUserSelector,
+  errorSelector,
+  isAuthSelector,
+  isLoadingSelector,
 } from '../../store/selectors/userSelector';
 import { userLoginRequest } from '../../store/actions/userActionCreators';
 import Spinner from '../../components/Spinner/Spinner';
@@ -17,9 +21,9 @@ const Login = ({
   user,
   isLoading,
   isAuth,
+  alert,
   error,
 }) => {
-
   const history = useHistory();
   const [formData, setFormData] = useState({ login: '', password: '' });
 
@@ -41,6 +45,7 @@ const Login = ({
     <DivWithBackground bgImage={img}>
       <div className="login-area">
         {isLoading && <Spinner />}
+        {alert && <p>{alert}</p>}
         <form onSubmit={e => handleSubmit(e)}>
           <input
             className="login-field"
@@ -79,6 +84,7 @@ const mapStateToProps = state => ({
   isAuth: isAuthSelector(state),
   isLoading: isLoadingSelector(state),
   error: errorSelector(state),
+  alert: alertSelector(state),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

@@ -2,7 +2,6 @@ import React from 'react';
 import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './container/Home/Home';
-import GamePage from './container/GamePage/GamePage';
 import Login from './container/Login/Login';
 import SignUp from './container/SignUp/SignUp';
 import Nav from './components/Nav/Nav';
@@ -15,10 +14,9 @@ const App = () => {
     <BrowserRouter>
       <Nav />
       <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/login" component={Login} exact />
-        <Route path="/sign-up" component={SignUp} exact />
-        <Route path="/game" component={GamePage} exact />
+        <Route path="/home" component={Home} exact />
+        <Route path="/(login||)" component={Login} exact />
+        <Route path="/registration" component={SignUp} exact />
         <Route path="/about" component={About} exact />
         <Route component={NotFound} />
       </Switch>
