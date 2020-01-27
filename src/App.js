@@ -1,29 +1,20 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import PrivateRoute from './container/PrivateRoute/PrivateRoute';
-import Home from './container/Home/Home';
-import Login from './container/Login/Login';
-import SignUp from './container/SignUp/SignUp';
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
+import store from './store/store';
 import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
-import About from './components/About/About';
-import NotFound from './components/NotFound/NotFound';
+import Routes from './routing/Routes';
 
-const App = () => {
-  return (
+const App = () => (
+  <Provider store={store}>
     <BrowserRouter>
       <Nav />
-      <Switch>
-        <PrivateRoute path="/home" component={Home} exact />
-        <Route path="/(login||)" component={Login} exact />
-        <Route path="/registration" component={SignUp} exact />
-        <Route path="/about" component={About} exact />
-        <Route component={NotFound} />
-      </Switch>
+      <Route component={Routes} />
       <Footer />
     </BrowserRouter>
-  );
-};
+  </Provider>
+);
 
 export default App;
