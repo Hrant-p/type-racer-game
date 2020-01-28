@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import './Home.scss';
 import bgImage from '../../img/coder.jpeg';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
+import Game from "../Game/Game";
 
 const Home = ({ user }) => (
     <DivWithBackground bgImage={bgImage}>
-                Home
+                <Game />
     </DivWithBackground>
 );
 

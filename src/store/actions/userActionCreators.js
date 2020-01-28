@@ -1,4 +1,4 @@
-import { errorType, loadingType, userTypes } from './types';
+import { alertType, loadingType, userTypes } from './types';
 
 export function userLoginRequest(login, password) {
   return {
@@ -51,21 +51,21 @@ export function setLoadingState(isLoading) {
 
 export function setErrorState(error) {
   return {
-    type: errorType.SET_ERROR_STATE,
+    type: userTypes.SET_USER_ERROR_STATE,
     payload: { error },
   };
 }
 
 export function setAlert(alert) {
   return {
-    type: errorType.SET_ALERT,
+    type: alertType.SET_ALERT,
     payload: { alert },
   };
 }
 
 export function removeAlert() {
   return {
-    type: errorType.REMOVE_ALERT,
+    type: alertType.REMOVE_ALERT,
     payload: {},
   };
 }

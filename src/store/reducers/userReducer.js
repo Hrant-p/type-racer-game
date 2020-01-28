@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { errorType, loadingType, userTypes } from '../actions/types';
+import { alertType, loadingType, userTypes } from '../actions/types';
 
 const initialState = fromJS({
   user: {},
@@ -19,11 +19,11 @@ export default (state = initialState, { type, payload }) => {
       return initialState;
     case loadingType.CHANGE_LOADING_STATE:
       return state.set('isLoading', fromJS(payload.isLoading));
-    case errorType.SET_ALERT:
+    case alertType.SET_ALERT:
       return state.set('alert', fromJS(payload.alert));
-    case errorType.REMOVE_ALERT:
+    case alertType.REMOVE_ALERT:
       return state.set('alert', fromJS(null));
-    case errorType.SET_ERROR_STATE:
+    case userTypes.SET_USER_ERROR_STATE:
       return state.set('error', fromJS(payload.error));
     default:
       return state;
