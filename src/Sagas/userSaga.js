@@ -57,9 +57,7 @@ function* createNewUser({ payload: { newUser } }) {
       request,
       'PUT',
       constructUrl([userApi.url, userApi.id], {}),
-      // JSON.stringify(
-      data,
-      // ),
+      data
     );
     yield put(createNewUserRequestSuccess());
     yield put(userLoginSucceed({

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import Immutable from 'immutable';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
 import img from '../../img/coding2.jpg';
 import './Login.scss';
@@ -20,7 +19,6 @@ import Spinner from '../../components/Spinner/Spinner';
 
 const Login = ({
   userLoginActionCreator,
-  user,
   isLoading,
   isAuth,
   alert,
@@ -87,7 +85,6 @@ const Login = ({
 
 Login.propTypes = {
   userLoginActionCreator: PropTypes.func.isRequired,
-  user: PropTypes.instanceOf(Immutable.Map).isRequired,
   isLoading: PropTypes.bool.isRequired,
   isAuth: PropTypes.bool.isRequired,
   alert: PropTypes.string,

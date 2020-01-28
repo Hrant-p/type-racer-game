@@ -3,7 +3,7 @@ import './App.scss';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route } from 'react-router-dom';
 import store from './store/store';
-import Nav from './components/Nav/Nav';
+import Nav from './container/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import Routes from './routing/Routes';
 

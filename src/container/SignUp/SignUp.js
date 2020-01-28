@@ -24,7 +24,7 @@ const SignUp = ({
   setAlertActionCreator,
   isLoading,
   alert,
-  error,
+  error
 }) => {
   const [formData, setFormData] = useState({
     nickname: '',
@@ -125,14 +125,14 @@ SignUp.propTypes = {
 
 SignUp.defaultProps = {
   alert: null,
-  error: null,
+  error: null
 };
 
 const mapStateToProps = state => ({
   isLoading: isLoadingSelector(state),
   isAuth: isAuthSelector(state),
   alert: alertSelector(state),
-  error: errorSelector(state),
+  error: errorSelector(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

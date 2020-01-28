@@ -15,6 +15,8 @@ export default (state = initialState, { type, payload }) => {
       return state.set('user', fromJS(payload.data));
     case userTypes.SET_AUTHENTICATION_STATE:
       return state.set('isAuth', fromJS(payload.isAuth));
+    case userTypes.USER_SIGN_OUT:
+      return initialState;
     case loadingType.CHANGE_LOADING_STATE:
       return state.set('isLoading', fromJS(payload.isLoading));
     case errorType.SET_ALERT:

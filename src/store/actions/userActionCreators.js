@@ -14,6 +14,13 @@ export function userLoginSucceed(data) {
   };
 }
 
+export function userSignOut() {
+  return {
+    type: userTypes.USER_SIGN_OUT,
+    payload: {},
+  };
+}
+
 export function createNewUserRequest(newUser) {
   return {
     type: userTypes.POST_CERTAIN_USER,
