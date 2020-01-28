@@ -4,5 +4,5 @@ export const userApi = {
 };
 
 export const baconIpsumApi = {
-  url: 'https://baconipsum.com/json-api',
+  url: 'https://baconipsum.com/api/',
 };

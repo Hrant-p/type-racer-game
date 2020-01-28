@@ -49,7 +49,7 @@ function* createNewUser({ payload: { newUser } }) {
     const { data } = yield call(
       request,
       'GET',
-      constructUrl([userApi.url, userApi.id], {}),
+      constructUrl([userApi.url, userApi.id], {})
     );
     data.push({ ...newUser, lastTypeResult: null });
     console.log(data);
@@ -71,7 +71,7 @@ function* createNewUser({ payload: { newUser } }) {
     yield put(setAuthState(false));
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
-    console.log(e.message());
+    console.log(e);
   }
 }
 

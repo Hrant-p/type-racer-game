@@ -5,3 +5,8 @@ export const constructUrl = (arr, queryObj) => {
 
   return arr.join('/') + (queryString ? `?${queryString}` : '');
 };
+
+export const calculateWPM = (startDate, finishDate, wordsCount) => {
+  const interval = Math.round((finishDate - startDate) / 6000);
+  return Math.round(interval / wordsCount);
+}

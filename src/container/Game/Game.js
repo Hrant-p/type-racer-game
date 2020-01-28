@@ -3,10 +3,11 @@ import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Immutable from 'immutable';
 import {
   clearRandomText,
   getLastWpmResult,
-  getRandomTextRequest
+  getRandomTextRequest, putLastWpmResultRequest
 } from '../../store/actions/textActionCreators';
 import {
   lastTypeResultSelector,
@@ -14,18 +15,21 @@ import {
   textErrorSelector,
   textLoadingSelector
 } from '../../store/selectors/textSelector';
-import Spinner from "../../components/Spinner/Spinner";
+import Spinner from '../../components/Spinner/Spinner';
 
 const Game = ({
+  user,
   randomText,
   lastTypeResult,
   textLoading,
   textError,
   getRandomTextActionCreator,
   clearRandomTextCreator,
-  getLastWpmResultActionCreator
+  getLastWpmResultActionCreator,
+  putLastWpmResultRequestActionCreator
 }) => {
-  const [typedText, setTypedText] = useState(null);
+  const [typedText, setTypedText] = useState('');
+  const [wpmResult, setWpmResult] = useState(null);
   const [showGameContent, setshowGameContent] = useState(false);
 
   const handleChange = ({ target: { value } }) => {
@@ -34,6 +38,9 @@ const Game = ({
   const startGame = () => {
     getRandomTextActionCreator();
     setshowGameContent(true);
+    if (wpmResult) {
+      putLastWpmResultRequestActionCreator(wpmResult, user.get('nickname'));
+    }
   };
 
   return (
@@ -69,7 +76,8 @@ Game.propTypes = {
   textError: PropTypes.string,
   getRandomTextActionCreator: PropTypes.func.isRequired,
   clearRandomTextCreator: PropTypes.func.isRequired,
-  getLastWpmResultActionCreator: PropTypes.func.isRequired
+  getLastWpmResultActionCreator: PropTypes.func.isRequired,
+  putLastWpmResultRequestActionCreator: PropTypes.func.isRequired
 };
 
 Game.defaultProps = {
@@ -82,13 +90,15 @@ const mapStateToProps = state => ({
   randomText: randomTextSelector(state),
   lastTypeResult: lastTypeResultSelector(state),
   textLoading: textLoadingSelector(state),
-  textError: textErrorSelector(state)
+  textError: textErrorSelector(state),
+  user: PropTypes.instanceOf(Immutable.Map).isRequired,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   getRandomTextActionCreator: getRandomTextRequest,
   clearRandomTextCreator: clearRandomText,
-  getLastWpmResultActionCreator: getLastWpmResult
+  getLastWpmResultActionCreator: getLastWpmResult,
+  putLastWpmResultRequestActionCreator: putLastWpmResultRequest
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

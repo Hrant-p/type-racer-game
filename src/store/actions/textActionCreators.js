@@ -35,10 +35,10 @@ export function getLastWpmResultSuccess(data) {
   };
 }
 
-export function putLastWpmResult(result) {
+export function putLastWpmResultRequest(result, userName) {
   return {
     type: textTypes.PUT_LAST_WPM_RESULT,
-    payload: { result }
+    payload: { result, userName }
   };
 }
 

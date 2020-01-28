@@ -2,7 +2,11 @@ import {
   all, put, call, takeLatest
 } from 'redux-saga/effects';
 import { textTypes } from '../store/actions/types';
-import { getRandomTextRequestSuccess, setTextErrorState, setTextLoadingState } from '../store/actions/textActionCreators';
+import {
+  getRandomTextRequestSuccess,
+  setTextErrorState,
+  setTextLoadingState
+} from '../store/actions/textActionCreators';
 import { request } from '../services/requestService';
 import { baconIpsumApi, userApi } from '../API/keysAndUrls';
 import { constructUrl } from '../API/helpers';
@@ -15,10 +19,14 @@ function* getRandomText() {
       'GET',
       constructUrl(
         [baconIpsumApi.url],
-        { type: 'meat-and-filler' }
+        {
+          type: 'meat-and-filler',
+          paras: '1',
+          format: 'text'
+        }
       )
     );
-    yield put(getRandomTextRequestSuccess(data[0]));
+    yield put(getRandomTextRequestSuccess(data));
     yield put(setTextLoadingState(false));
   } catch (e) {
     yield put(setTextLoadingState(false));
@@ -37,7 +45,7 @@ function* putLastWpmResult(result, userName) {
 
     const id = data.findIndex(item => item.nickname === userName);
     data[id].lastTypeResult = result;
-
+    console.log(data);
     yield call(
       request,
       'PUT',
