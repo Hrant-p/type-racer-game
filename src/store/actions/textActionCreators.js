@@ -28,10 +28,10 @@ export function getLastWpmResult() {
   };
 }
 
-export function getLastWpmResultSuccess() {
+export function getLastWpmResultSuccess(data) {
   return {
     type: textTypes.GET_LAST_WPM_RESULT_SUCCEED,
-    payload: {}
+    payload: { data }
   };
 }
 

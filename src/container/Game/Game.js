@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {
+  clearRandomText,
+  getLastWpmResult,
+  getRandomTextRequest
+} from '../../store/actions/textActionCreators';
+import {
+  lastTypeResultSelector,
+  randomTextSelector,
+  textErrorSelector,
+  textLoadingSelector
+} from '../../store/selectors/textSelector';
 
 const Game = () => {
   const [typedText, setTypedText] = useState(null);
@@ -10,7 +23,9 @@ const Game = () => {
   return (
     <div className="game">
             Type Racer Game
-        <button>Start Game</button>
+      <button type="button">
+          Start Game
+      </button>
       <p>
         {null}
       </p>
@@ -27,4 +42,17 @@ Game.propTypes = {
 
 };
 
-export default Game;
+const mapStateToProps = state => ({
+  randomText: randomTextSelector(state),
+  lastTypeResult: lastTypeResultSelector(state),
+  textLoading: textLoadingSelector(state),
+  textError: textErrorSelector(state),
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getRandomTextActionCreator: getRandomTextRequest,
+  clearRandomTextCreator: clearRandomText,
+  getLastWpmResultActionCreator: getLastWpmResult
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

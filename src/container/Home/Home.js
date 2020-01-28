@@ -4,12 +4,12 @@ import Immutable from 'immutable';
 import './Home.scss';
 import bgImage from '../../img/coder.jpeg';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
-import Game from "../Game/Game";
+import Game from '../Game/Game';
 
-const Home = ({ user }) => (
-    <DivWithBackground bgImage={bgImage}>
-                <Game />
-    </DivWithBackground>
+const Home = () => (
+  <DivWithBackground bgImage={bgImage}>
+    <Game />
+  </DivWithBackground>
 );
 
 Home.propTypes = {
