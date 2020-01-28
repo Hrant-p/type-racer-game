@@ -51,7 +51,7 @@ export function setTextErrorState(error) {
 
 export function setTextLoadingState(isLoading) {
   return {
-    type: loadingType.CHANGE_LOADING_STATE,
+    type: textTypes.CHANGE_TEXT_LOADING_STATE,
     payload: { isLoading },
   };
 }

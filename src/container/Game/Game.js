@@ -16,6 +16,7 @@ import {
   textLoadingSelector
 } from '../../store/selectors/textSelector';
 import Spinner from '../../components/Spinner/Spinner';
+import { currentUserSelector } from '../../store/selectors/userSelector';
 
 const Game = ({
   user,
@@ -28,12 +29,22 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  const [typedText, setTypedText] = useState('');
+  const count = randomText && randomText
+    .trim()
+    .match(/.*?[\"'.?,;:\ ]+?/g)
+    .filter(i => i !== ' ' && i !== '')
+    .length;
+
+  const [text, setTextState] = useState('');
+  const [startAndFinish, setStartAndFinish] = useState({
+    start: 0,
+    finish: 0
+  });
   const [wpmResult, setWpmResult] = useState(null);
   const [showGameContent, setshowGameContent] = useState(false);
 
   const handleChange = ({ target: { value } }) => {
-    setTypedText(value);
+    setTextState(value);
   };
   const startGame = () => {
     getRandomTextActionCreator();
@@ -59,8 +70,9 @@ const Game = ({
             {randomText}
           </p>
           <input
+            className="type-field"
             type="text"
-            value={typedText}
+            value={text}
             onChange={handleChange}
           />
         </>
@@ -70,6 +82,7 @@ const Game = ({
 };
 
 Game.propTypes = {
+  user: PropTypes.instanceOf(Immutable.Map).isRequired,
   randomText: PropTypes.string,
   lastTypeResult: PropTypes.string,
   textLoading: PropTypes.bool.isRequired,
@@ -89,9 +102,9 @@ Game.defaultProps = {
 const mapStateToProps = state => ({
   randomText: randomTextSelector(state),
   lastTypeResult: lastTypeResultSelector(state),
+  user: currentUserSelector(state),
   textLoading: textLoadingSelector(state),
-  textError: textErrorSelector(state),
-  user: PropTypes.instanceOf(Immutable.Map).isRequired,
+  textError: textErrorSelector(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
