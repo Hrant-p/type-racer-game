@@ -71,7 +71,7 @@ function* createNewUser({ payload: { newUser } }) {
     yield put(setAuthState(false));
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
-    console.log(e);
+    console.log(e.message());
   }
 }
 

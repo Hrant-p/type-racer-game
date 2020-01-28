@@ -14,6 +14,7 @@ import {
   textErrorSelector,
   textLoadingSelector
 } from '../../store/selectors/textSelector';
+import Spinner from "../../components/Spinner/Spinner";
 
 const Game = ({
   randomText,
@@ -38,6 +39,7 @@ const Game = ({
   return (
     <div className="game">
             Type Racer Game
+      {textLoading && <Spinner />}
       <button
         type="button"
         onClick={startGame}
@@ -80,7 +82,7 @@ const mapStateToProps = state => ({
   randomText: randomTextSelector(state),
   lastTypeResult: lastTypeResultSelector(state),
   textLoading: textLoadingSelector(state),
-  textError: textErrorSelector(state),
+  textError: textErrorSelector(state)
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

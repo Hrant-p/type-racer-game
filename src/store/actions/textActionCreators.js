@@ -1,4 +1,4 @@
-import { textTypes } from './types';
+import {loadingType, textTypes} from './types';
 
 export function getRandomTextRequest() {
   return {
@@ -46,5 +46,12 @@ export function setTextErrorState(error) {
   return {
     type: textTypes.SET_TEXT_ERROR_STATE,
     payload: { error }
+  };
+};
+
+export function setTextLoadingState(isLoading) {
+  return {
+    type: loadingType.CHANGE_LOADING_STATE,
+    payload: { isLoading },
   };
 }
