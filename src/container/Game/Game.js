@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,6 +17,8 @@ import {
 } from '../../store/selectors/textSelector';
 import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
+import { calculateWPM } from '../../API/helpers';
+import Timer from '../Timer/Counter';
 
 const Game = ({
   user,
@@ -29,30 +31,37 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  const count = randomText && randomText
+  const txt = 'Lorem ipsum dolor sit amet';
+  const count = randomText && txt
     .trim()
     .match(/.*?[\"'.?,;:\ ]+?/g)
     .filter(i => i !== ' ' && i !== '')
     .length;
-
-  const [text, setTextState] = useState('');
-  const [startAndFinish, setStartAndFinish] = useState({
-    start: 0,
-    finish: 0
-  });
+  let secondsInterval = 30;
+  const [text, setText] = useState('');
+  const [showGameContent, setShowGameContent] = useState(false);
   const [wpmResult, setWpmResult] = useState(null);
-  const [showGameContent, setshowGameContent] = useState(false);
 
   const handleChange = ({ target: { value } }) => {
-    setTextState(value);
+    setText(value);
   };
+
   const startGame = () => {
     getRandomTextActionCreator();
-    setshowGameContent(true);
-    if (wpmResult) {
-      putLastWpmResultRequestActionCreator(wpmResult, user.get('nickname'));
-    }
+    secondsInterval = 30
+    setShowGameContent(true);
   };
+
+  useEffect(() => {
+    if (text === txt) {
+      const result = calculateWPM(secondsInterval, count);
+      setWpmResult(result);
+      putLastWpmResultRequestActionCreator(wpmResult, user.get('nickname'));
+      console.log('result', result);
+    }
+    console.log('wpmResult', wpmResult);
+  }, [text, wpmResult, txt, count]);
+
 
   return (
     <div className="game">
@@ -66,6 +75,7 @@ const Game = ({
       </button>
       {showGameContent && (
         <>
+          <Timer secondsInterval={secondsInterval} />
           <p>
             {randomText}
           </p>
