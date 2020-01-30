@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import {
   getRandomTextRequest, putLastWpmResultRequest
 } from '../../store/actions/textActionCreators';
 import {
-  lastTypeResultSelector,
+  lastResultSelector,
   randomTextSelector,
   textErrorSelector,
   textLoadingSelector
@@ -19,13 +19,12 @@ import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
 import { calculateWPM } from '../../API/helpers';
 import Timer from '../Timer/Timer';
-import gif from '../../img/start.gif';
 import BeforeStartTimer from '../../components/BeforeStartTimer/BeforeStartTimer';
 
 const Game = ({
   user,
   randomText,
-  lastTypeResult,
+  lastResult,
   textLoading,
   textError,
   getRandomTextActionCreator,
@@ -58,7 +57,7 @@ const Game = ({
     setDelay(null);
     setShowGameContent(true);
     id = setTimeout(() => setDelay(1000),
-      4000);
+      5000);
   };
 
   useEffect(() => {
@@ -66,19 +65,14 @@ const Game = ({
       const result = calculateWPM(secondsInterval, count);
       setWpmResult(result);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
-      console.log('result', result);
     }
-    console.log('wpmResult', wpmResult);
-  }, [text, wpmResult, txt, count, delay]);
+  }, [text, wpmResult, txt, count, delay, putLastWpmResultRequestActionCreator]);
 
   return (
     <div className="game">
             Type Racer Game
       {textLoading && <Spinner />}
-      <button
-        type="button"
-        onClick={startGame}
-      >
+      <button type="button" onClick={startGame}>
           Start New Game
       </button>
       {showGameContent && (
@@ -100,6 +94,7 @@ const Game = ({
             type="text"
             value={text}
             onChange={handleChange}
+            disabled={!delay}
           />
         </>
       )}
@@ -110,7 +105,7 @@ const Game = ({
 Game.propTypes = {
   user: PropTypes.instanceOf(Immutable.Map).isRequired,
   randomText: PropTypes.string,
-  lastTypeResult: PropTypes.string,
+  lastResult: PropTypes.number,
   textLoading: PropTypes.bool.isRequired,
   textError: PropTypes.string,
   getRandomTextActionCreator: PropTypes.func.isRequired,
@@ -121,13 +116,13 @@ Game.propTypes = {
 
 Game.defaultProps = {
   randomText: null,
-  lastTypeResult: null,
+  lastResult: null,
   textError: null
 };
 
 const mapStateToProps = state => ({
   randomText: randomTextSelector(state),
-  lastTypeResult: lastTypeResultSelector(state),
+  lastResult: lastResultSelector(state),
   user: currentUserSelector(state),
   textLoading: textLoadingSelector(state),
   textError: textErrorSelector(state)

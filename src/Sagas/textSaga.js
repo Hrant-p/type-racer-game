@@ -3,6 +3,7 @@ import {
 } from 'redux-saga/effects';
 import { textTypes } from '../store/actions/types';
 import {
+  getLastWpmResultSuccess,
   getRandomTextRequestSuccess,
   setTextErrorState,
   setTextLoadingState
@@ -34,28 +35,28 @@ function* getRandomText() {
   }
 }
 
-function* putLastWpmResult(result, userName) {
+function* putLastWpmResult({ payload: { result, userName } }) {
   try {
     yield put(setTextLoadingState(true));
     const { data } = yield call(
       request,
       'GET',
-      constructUrl([userApi.url, userApi.id], {}),
+      constructUrl([userApi.url, userApi.id], {})
     );
-
     const id = data.findIndex(item => item.nickname === userName);
     data[id].lastTypeResult = result;
-    console.log(data);
     yield call(
       request,
       'PUT',
       constructUrl([userApi.url, userApi.id], {}),
       data
     );
+    yield put(getLastWpmResultSuccess(result));
     yield put(setTextLoadingState(false));
   } catch (e) {
     yield put(setTextLoadingState(false));
     yield put(setTextErrorState(e.message));
+    console.log(e);
   }
 }
 

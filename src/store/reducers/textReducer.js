@@ -3,7 +3,7 @@ import { textTypes } from '../actions/types';
 
 const initialState = fromJS({
   randomText: null,
-  lastTypeResult: null,
+  lastResult: null,
   textLoading: false,
   textError: null,
 });
@@ -15,7 +15,7 @@ export default (state = initialState, { type, payload }) => {
     case textTypes.CLEAR_RANDOM_TEXT:
       return state.set('randomText', fromJS(null));
     case textTypes.GET_LAST_WPM_RESULT_SUCCEED:
-      return state.set('lastTypeResult', fromJS(payload.data));
+      return state.set('lastResult', fromJS(payload.data));
     case textTypes.CHANGE_TEXT_LOADING_STATE:
       return state.set('textLoading', fromJS(payload.isLoading));
     case textTypes.SET_TEXT_ERROR_STATE:

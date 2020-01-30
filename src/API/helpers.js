@@ -7,6 +7,6 @@ export const constructUrl = (arr, queryObj) => {
 };
 
 export const calculateWPM = (interval, wordsCount) => {
-  const minutesInterval = Math.round(interval / 6000);
-  return Math.round(minutesInterval / wordsCount);
+  const minutesInterval = Math.round(interval / 60);
+  return Math.round(wordsCount / minutesInterval);
 };
