@@ -33,12 +33,9 @@ const Game = ({
   putLastWpmResultRequestActionCreator
 }) => {
   const txt = 'Lorem ipsum dolor sit amet';
-  const count = randomText && txt
-    .trim()
-    .match(/.*?[\"'.?,;:\ ]+?/g)
-    .filter(i => i !== ' ' && i !== '')
-    .length;
-  const secondsInterval = 120;
+  let count = randomText ? randomText.match(/\w+/gm).length : null;
+  console.log(count)
+  const secondsInterval = 20;
   const [delay, setDelay] = useState(null);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
