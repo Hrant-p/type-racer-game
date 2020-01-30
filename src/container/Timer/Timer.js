@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { useInterval } from './useInterval';
+import { useInterval } from '../../customHooks/useInterval';
 
-const Timer = ({ secondsInterval }) => {
+const Timer = ({ secondsInterval, delay }) => {
   const [count, setCount] = useState(secondsInterval);
-  const delay = 1000;
   const minutes = Math.floor(count / 60);
+
   useInterval(() => {
     if (count > 0) {
       setCount(count - 1);
@@ -20,13 +20,17 @@ const Timer = ({ secondsInterval }) => {
             {`${minutes}: ${count - minutes * 60}`}
           </h5>
         ) : <p>Time finished!</p>}
-;
     </Fragment>
   );
 };
 
 Timer.propTypes = {
-  secondsInterval: PropTypes.number.isRequired
+  secondsInterval: PropTypes.number.isRequired,
+  delay: PropTypes.number
+};
+
+Timer.defaultProps = {
+  delay: null
 };
 
 export default Timer;

@@ -18,7 +18,9 @@ import {
 import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
 import { calculateWPM } from '../../API/helpers';
-import Timer from '../Timer/Counter';
+import Timer from '../Timer/Timer';
+import gif from '../../img/start.gif';
+import BeforeStartTimer from '../../components/BeforeStartTimer/BeforeStartTimer';
 
 const Game = ({
   user,
@@ -37,7 +39,8 @@ const Game = ({
     .match(/.*?[\"'.?,;:\ ]+?/g)
     .filter(i => i !== ' ' && i !== '')
     .length;
-  let secondsInterval = 30;
+  const secondsInterval = 120;
+  const [delay, setDelay] = useState(null);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
   const [wpmResult, setWpmResult] = useState(null);
@@ -48,20 +51,25 @@ const Game = ({
 
   const startGame = () => {
     getRandomTextActionCreator();
-    secondsInterval = 30
+    let id;
+    if (id) {
+      clearTimeout(id);
+    }
+    setDelay(null);
     setShowGameContent(true);
+    id = setTimeout(() => setDelay(1000),
+      4000);
   };
 
   useEffect(() => {
     if (text === txt) {
       const result = calculateWPM(secondsInterval, count);
       setWpmResult(result);
-      putLastWpmResultRequestActionCreator(wpmResult, user.get('nickname'));
+      putLastWpmResultRequestActionCreator(result, user.get('nickname'));
       console.log('result', result);
     }
     console.log('wpmResult', wpmResult);
-  }, [text, wpmResult, txt, count]);
-
+  }, [text, wpmResult, txt, count, delay]);
 
   return (
     <div className="game">
@@ -75,10 +83,18 @@ const Game = ({
       </button>
       {showGameContent && (
         <>
-          <Timer secondsInterval={secondsInterval} />
+          <div className="time-area">
+            {delay ? (
+              <Timer
+                secondsInterval={secondsInterval}
+                delay={delay}
+              />
+            ) : <BeforeStartTimer />}
+          </div>
           <p>
             {randomText}
           </p>
+          <hr />
           <input
             className="type-field"
             type="text"
