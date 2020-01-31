@@ -7,7 +7,8 @@ import Immutable from 'immutable';
 import {
   clearRandomText,
   getLastWpmResult,
-  getRandomTextRequest, putLastWpmResultRequest
+  getRandomTextRequest,
+  putLastWpmResultRequest
 } from '../../store/actions/textActionCreators';
 import {
   lastResultSelector,
@@ -32,17 +33,28 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  const txt = 'Lorem ipsum dolor sit amet';
-  let count = randomText ? randomText.match(/\w+/gm).length : null;
-  console.log(count)
+  const txt = 'lorem ipsum dolor sit amet'; // fake string for Testing
+  const [alreadyTypedText, setAlreadyTypedText] = useState('');
+  const count = txt ? txt.match(/\w+/gm).length : null;
   const secondsInterval = 20;
   const [delay, setDelay] = useState(null);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
   const [wpmResult, setWpmResult] = useState(null);
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = ({ currentTarget: { value } }) => {
     setText(value);
+  };
+
+  const keyPress = ({ key }) => {
+    if (alreadyTypedText && alreadyTypedText.match(/\w+/gm).length === count - 1) {
+      setAlreadyTypedText(alreadyTypedText.concat(text));
+      return;
+    }
+    if (key === ' ') {
+      setAlreadyTypedText(alreadyTypedText.concat(`${text.repeat(1)}${key}`));
+      setText('');
+    }
   };
 
   const startGame = () => {
@@ -53,44 +65,48 @@ const Game = ({
     }
     setDelay(null);
     setShowGameContent(true);
-    id = setTimeout(() => setDelay(1000),
-      5000);
+    id = setTimeout(() => setDelay(1000), 5000);
   };
 
   useEffect(() => {
-    if (text === txt) {
+    if (txt === alreadyTypedText) {
       const result = calculateWPM(secondsInterval, count);
       setWpmResult(result);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
-  }, [text, wpmResult, txt, count, delay, putLastWpmResultRequestActionCreator]);
+  }, [
+    text,
+    wpmResult,
+    txt,
+    count,
+    delay,
+    putLastWpmResultRequestActionCreator
+  ]);
 
   return (
     <div className="game">
-            Type Racer Game
+      Type Racer Game
       {textLoading && <Spinner />}
       <button type="button" onClick={startGame}>
-          Start New Game
+        Start New Game
       </button>
       {showGameContent && (
         <>
           <div className="time-area">
             {delay ? (
-              <Timer
-                secondsInterval={secondsInterval}
-                delay={delay}
-              />
-            ) : <BeforeStartTimer />}
+              <Timer secondsInterval={secondsInterval} delay={delay} />
+            ) : (
+              <BeforeStartTimer />
+            )}
           </div>
-          <p>
-            {randomText}
-          </p>
+          <p>{randomText}</p>
           <hr />
           <input
             className="type-field"
             type="text"
             value={text}
             onChange={handleChange}
+            onKeyPress={keyPress}
             disabled={!delay}
           />
         </>
@@ -125,11 +141,14 @@ const mapStateToProps = state => ({
   textError: textErrorSelector(state)
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getRandomTextActionCreator: getRandomTextRequest,
-  clearRandomTextCreator: clearRandomText,
-  getLastWpmResultActionCreator: getLastWpmResult,
-  putLastWpmResultRequestActionCreator: putLastWpmResultRequest
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    getRandomTextActionCreator: getRandomTextRequest,
+    clearRandomTextCreator: clearRandomText,
+    getLastWpmResultActionCreator: getLastWpmResult,
+    putLastWpmResultRequestActionCreator: putLastWpmResultRequest
+  },
+  dispatch
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
