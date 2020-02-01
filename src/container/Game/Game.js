@@ -34,20 +34,28 @@ const Game = ({
   putLastWpmResultRequestActionCreator
 }) => {
   const txt = 'lorem ipsum dolor sit amet'; // fake string for Testing
+  let id;
   const regex = /\w+/gm;
+  const secondsInterval = 120;
   const [alreadyTypedText, setAlreadyTypedText] = useState('');
   const count = txt ? txt.match(regex).length : null;
-  const secondsInterval = 20;
   const [delay, setDelay] = useState(null);
   const [color, setColor] = useState(true);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
-  const [wpmResult, setWpmResult] = useState(null);
 
-  const checkIsPenultimate = (value, length) => {
-    if (!value.includes(' ') && color && (length + value.length === txt.length)) {
+  const checkValue = (value, length, i) => {
+    if (!(value.includes(' '))
+        && color
+        && (length + value.length === txt.length)
+        && value[i] === txt[txt.length - 1]) {
       setAlreadyTypedText(alreadyTypedText.concat(value));
-      setText('You Are Successfully Finished !');
+      setText('You Are Successfully Finished...!');
+    }
+
+    if (value[i] === ' ' && color) {
+      setAlreadyTypedText(alreadyTypedText.concat(value));
+      setText('');
     }
   };
 
@@ -55,44 +63,41 @@ const Game = ({
     setText(value);
 
     for (let i = 0; i < value.length; i++) {
+      if (value[i] !== txt[alreadyTypedText.length + i]) {
+        setColor(false);
+        break;
+      }
+
       if (value[i] === txt[alreadyTypedText.length + i]) {
         setColor(true);
-        checkIsPenultimate(value, alreadyTypedText.length);
-      } else {
-        setColor(false);
+        checkValue(value, alreadyTypedText.length, i);
       }
-    }
-
-    if (value.includes(' ') && color) {
-      setAlreadyTypedText(alreadyTypedText.concat(value));
-      setText('');
     }
   };
 
   const startGame = () => {
     getRandomTextActionCreator();
-    let id;
     if (id) {
       clearTimeout(id);
     }
     setDelay(null);
     setShowGameContent(true);
-    id = setTimeout(() => setDelay(1000), 5000);
+    id = setTimeout(() => setDelay(1000), 4000);
   };
 
   useEffect(() => {
     if (txt === alreadyTypedText) {
       const result = calculateWPM(secondsInterval, count);
-      setWpmResult(result);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
+    return () => clearInterval(id);
   }, [
-    text,
-    wpmResult,
     txt,
     count,
     delay,
-    putLastWpmResultRequestActionCreator
+    user,
+    putLastWpmResultRequestActionCreator,
+    alreadyTypedText,
   ]);
 
   return (

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useInterval } from '../../customHooks/useInterval';
 
 const BeforeStartTimer = () => {
-  const [count, setCount] = useState(4);
+  const [count, setCount] = useState(3);
 
   useInterval(() => {
     if (count > 0) {
