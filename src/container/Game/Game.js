@@ -34,25 +34,37 @@ const Game = ({
   putLastWpmResultRequestActionCreator
 }) => {
   const txt = 'lorem ipsum dolor sit amet'; // fake string for Testing
+  const regex = /\w+/gm;
   const [alreadyTypedText, setAlreadyTypedText] = useState('');
-  const count = txt ? txt.match(/\w+/gm).length : null;
+  const count = txt ? txt.match(regex).length : null;
   const secondsInterval = 20;
   const [delay, setDelay] = useState(null);
+  const [color, setColor] = useState(true);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
   const [wpmResult, setWpmResult] = useState(null);
 
-  const handleChange = ({ currentTarget: { value } }) => {
-    setText(value);
+  const checkIsPenultimate = (value, length) => {
+    if (!value.includes(' ') && color && (length + value.length === txt.length)) {
+      setAlreadyTypedText(alreadyTypedText.concat(value));
+      setText('You Are Successfully Finished !');
+    }
   };
 
-  const keyPress = ({ key }) => {
-    if (alreadyTypedText && alreadyTypedText.match(/\w+/gm).length === count - 1) {
-      setAlreadyTypedText(alreadyTypedText.concat(text));
-      return;
+  const handleChange = ({ currentTarget: { value } }) => {
+    setText(value);
+
+    for (let i = 0; i < value.length; i++) {
+      if (value[i] === txt[alreadyTypedText.length + i]) {
+        setColor(true);
+        checkIsPenultimate(value, alreadyTypedText.length);
+      } else {
+        setColor(false);
+      }
     }
-    if (key === ' ') {
-      setAlreadyTypedText(alreadyTypedText.concat(`${text.repeat(1)}${key}`));
+
+    if (value.includes(' ') && color) {
+      setAlreadyTypedText(alreadyTypedText.concat(value));
       setText('');
     }
   };
@@ -103,10 +115,10 @@ const Game = ({
           <hr />
           <input
             className="type-field"
+            style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
             type="text"
             value={text}
             onChange={handleChange}
-            onKeyPress={keyPress}
             disabled={!delay}
           />
         </>
