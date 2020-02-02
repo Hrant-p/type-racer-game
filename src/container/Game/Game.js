@@ -20,7 +20,6 @@ import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
 import { calculateWPM, getWordsCount } from '../../utils';
 import Timer from '../Timer/Timer';
-import BeforeStartTimer from '../../components/BeforeStartTimer/BeforeStartTimer';
 
 const Game = ({
   user,
@@ -33,12 +32,10 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  let id;
-  let date;
-  const secondsInterval = 10;
+  const secondsInterval = 150;
   const inputElement = useRef(null);
   const [alreadyTypedText, setAlreadyTypedText] = useState('');
-  const [delay, setDelay] = useState(1000);
+  const [delay, setDelay] = useState(null);
   const [timerToggle, setTimerToggle] = useState(true);
   const [color, setColor] = useState(true);
   const [text, setText] = useState('');
@@ -78,19 +75,14 @@ const Game = ({
 
   const startTimer = () => {
     setTimerToggle(false);
-    const secondId = setTimeout(() => {
-      console.log(id);
-      if (id) {
-        clearTimeout(id);
-      setDelay(null);
-      }
-    }, secondsInterval * 1000);
     setDelay(1000);
     inputElement.current.focus();
   };
 
   const startGame = () => {
+    let id;
     getRandomTextActionCreator();
+    setDelay(1000);
     setTimerToggle(true);
     if (id) {
       clearTimeout(id);
@@ -104,10 +96,8 @@ const Game = ({
       const result = calculateWPM(secondsInterval, getWordsCount(alreadyTypedText));
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
-    return () => clearTimeout(id);
   }, [
     randomText,
-    delay,
     user,
     putLastWpmResultRequestActionCreator,
     alreadyTypedText
