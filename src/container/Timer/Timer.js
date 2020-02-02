@@ -1,16 +1,27 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useInterval } from '../../customHooks/useInterval';
+import BeforeStartTimer from '../../components/BeforeStartTimer/BeforeStartTimer';
 
-const Timer = ({ secondsInterval, delay }) => {
+const Timer = ({ secondsInterval, delay, toggle }) => {
   const [count, setCount] = useState(secondsInterval);
   const minutes = Math.floor(count / 60);
 
   useInterval(() => {
-    if (count > 0) {
+    // if (count) {
       setCount(count - 1);
-    }
+    // }
   }, delay);
+
+  useEffect(() => {
+    if (toggle) {
+      setCount(secondsInterval);
+    }
+  });
+
+  if (toggle) {
+    return <BeforeStartTimer />;
+  }
 
   return (
     <Fragment>
@@ -19,7 +30,7 @@ const Timer = ({ secondsInterval, delay }) => {
           <h5>
             {`${minutes}: ${count - minutes * 60}`}
           </h5>
-        ) : <p>Time finished!</p>}
+        ) : <p>Time has finished !</p>}
     </Fragment>
   );
 };

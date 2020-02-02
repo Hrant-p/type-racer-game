@@ -6,7 +6,3 @@ export const constructUrl = (arr, queryObj) => {
   return arr.join('/') + (queryString ? `?${queryString}` : '');
 };
 
-export const calculateWPM = (interval, wordsCount) => {
-  const minutesInterval = Math.round(interval / 60);
-  return Math.round(wordsCount / minutesInterval);
-};

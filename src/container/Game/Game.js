@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import {
 } from '../../store/selectors/textSelector';
 import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
-import { calculateWPM } from '../../API/helpers';
+import { calculateWPM, getWordsCount } from '../../utils';
 import Timer from '../Timer/Timer';
 import BeforeStartTimer from '../../components/BeforeStartTimer/BeforeStartTimer';
 
@@ -33,13 +33,13 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  const txt = 'lorem ipsum dolor sit amet'; // fake string for Testing
   let id;
-  const regex = /\w+/gm;
-  const secondsInterval = 120;
+  let date;
+  const secondsInterval = 10;
+  const inputElement = useRef(null);
   const [alreadyTypedText, setAlreadyTypedText] = useState('');
-  const count = txt ? txt.match(regex).length : null;
-  const [delay, setDelay] = useState(null);
+  const [delay, setDelay] = useState(1000);
+  const [timerToggle, setTimerToggle] = useState(true);
   const [color, setColor] = useState(true);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
@@ -47,10 +47,11 @@ const Game = ({
   const checkValue = (value, length, i) => {
     if (!(value.includes(' '))
         && color
-        && (length + value.length === txt.length)
-        && value[i] === txt[txt.length - 1]) {
+        && (length + value.length === randomText.length)
+        && value[i] === randomText[randomText.length - 1]) {
       setAlreadyTypedText(alreadyTypedText.concat(value));
       setText('You Are Successfully Finished...!');
+      inputElement.current.setAttribute('disabled', 'true');
     }
 
     if (value[i] === ' ' && color) {
@@ -63,41 +64,53 @@ const Game = ({
     setText(value);
 
     for (let i = 0; i < value.length; i++) {
-      if (value[i] !== txt[alreadyTypedText.length + i]) {
+      if (value[i] !== randomText[alreadyTypedText.length + i]) {
         setColor(false);
         break;
       }
 
-      if (value[i] === txt[alreadyTypedText.length + i]) {
+      if (value[i] === randomText[alreadyTypedText.length + i]) {
         setColor(true);
         checkValue(value, alreadyTypedText.length, i);
       }
     }
   };
 
+  const startTimer = () => {
+    setTimerToggle(false);
+    const secondId = setTimeout(() => {
+      console.log(id);
+      if (id) {
+        clearTimeout(id);
+      setDelay(null);
+      }
+    }, secondsInterval * 1000);
+    setDelay(1000);
+    inputElement.current.focus();
+  };
+
   const startGame = () => {
     getRandomTextActionCreator();
+    setTimerToggle(true);
     if (id) {
       clearTimeout(id);
     }
-    setDelay(null);
     setShowGameContent(true);
-    id = setTimeout(() => setDelay(1000), 4000);
+    id = setTimeout(startTimer, 4000);
   };
 
   useEffect(() => {
-    if (txt === alreadyTypedText) {
-      const result = calculateWPM(secondsInterval, count);
+    if (randomText === alreadyTypedText) {
+      const result = calculateWPM(secondsInterval, getWordsCount(alreadyTypedText));
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
-    return () => clearInterval(id);
+    return () => clearTimeout(id);
   }, [
-    txt,
-    count,
+    randomText,
     delay,
     user,
     putLastWpmResultRequestActionCreator,
-    alreadyTypedText,
+    alreadyTypedText
   ]);
 
   return (
@@ -110,18 +123,15 @@ const Game = ({
       {showGameContent && (
         <>
           <div className="time-area">
-            {delay ? (
-              <Timer secondsInterval={secondsInterval} delay={delay} />
-            ) : (
-              <BeforeStartTimer />
-            )}
+            <Timer secondsInterval={secondsInterval} delay={delay} toggle={timerToggle} />
           </div>
           <p>{randomText}</p>
           <hr />
           <input
+            ref={inputElement}
+            type="text"
             className="type-field"
             style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
-            type="text"
             value={text}
             onChange={handleChange}
             disabled={!delay}
