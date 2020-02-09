@@ -18,8 +18,9 @@ import {
 } from '../../store/selectors/textSelector';
 import Spinner from '../../components/Spinner/Spinner';
 import { currentUserSelector } from '../../store/selectors/userSelector';
-import { calculateWPM, getWordsCount } from '../../utils';
+import { calculateWPM, completionPercentCalc } from '../../utils';
 import Timer from '../Timer/Timer';
+import { useInterval } from '../../customHooks/useInterval';
 
 const Game = ({
   user,
@@ -32,14 +33,18 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
+  let id;
   const secondsInterval = 150;
   const inputElement = useRef(null);
-  const [alreadyTypedText, setAlreadyTypedText] = useState('');
+  const [stopWatch, setStopWatch] = useState(0);
+  const [tick, setTick] = useState(null);
   const [delay, setDelay] = useState(null);
+  const [alreadyTypedText, setAlreadyTypedText] = useState('');
   const [timerToggle, setTimerToggle] = useState(true);
   const [color, setColor] = useState(true);
   const [text, setText] = useState('');
   const [showGameContent, setShowGameContent] = useState(false);
+  const completionPercent = completionPercentCalc(randomText, alreadyTypedText);
 
   const checkValue = (value, length, i) => {
     if (!(value.includes(' '))
@@ -74,16 +79,19 @@ const Game = ({
   };
 
   const startTimer = () => {
+    setStopWatch(0);
     setTimerToggle(false);
     setDelay(1000);
     inputElement.current.focus();
+    setTick(1000);
   };
 
   const startGame = () => {
-    let id;
     getRandomTextActionCreator();
-    setDelay(1000);
+    setText('');
+    setAlreadyTypedText('');
     setTimerToggle(true);
+    setDelay(1000);
     if (id) {
       clearTimeout(id);
     }
@@ -91,16 +99,23 @@ const Game = ({
     id = setTimeout(startTimer, 4000);
   };
 
+  useInterval(() => setStopWatch(stopWatch + 1), tick);
+
   useEffect(() => {
     if (randomText === alreadyTypedText) {
-      const result = calculateWPM(secondsInterval, getWordsCount(alreadyTypedText));
+      const finalInterval = stopWatch < secondsInterval ? stopWatch : secondsInterval;
+      const result = calculateWPM(finalInterval, alreadyTypedText);
+      setTick(null);
+      setDelay(null);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
   }, [
     randomText,
     user,
     putLastWpmResultRequestActionCreator,
-    alreadyTypedText
+    alreadyTypedText,
+    stopWatch,
+    tick
   ]);
 
   return (
@@ -113,10 +128,19 @@ const Game = ({
       {showGameContent && (
         <>
           <div className="time-area">
-            <Timer secondsInterval={secondsInterval} delay={delay} toggle={timerToggle} />
+            <Timer
+              secondsInterval={secondsInterval}
+              delay={delay}
+              toggle={timerToggle}
+            />
           </div>
           <p>{randomText}</p>
           <hr />
+          <p>
+            Completion percent -
+            {' '}
+            {`${completionPercent}%`}
+          </p>
           <input
             ref={inputElement}
             type="text"
@@ -124,7 +148,7 @@ const Game = ({
             style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
             value={text}
             onChange={handleChange}
-            disabled={!delay}
+            disabled={timerToggle}
           />
         </>
       )}
