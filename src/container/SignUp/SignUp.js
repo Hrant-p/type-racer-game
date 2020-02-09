@@ -17,6 +17,9 @@ import {
   isLoadingSelector,
 } from '../../store/selectors/userSelector';
 import Spinner from '../../components/Spinner/Spinner';
+import StyledSection from "../../components/StyledSection/StyledSection";
+import Error from "../../components/Error/Error";
+import Alert from "../../components/Alert/Alert";
 
 const SignUp = ({
   isAuth,
@@ -59,9 +62,6 @@ const SignUp = ({
     <DivWithBackground bgImage={img}>
       <div className="login-area">
         <form onSubmit={e => handleSubmit(e)}>
-          {isLoading && <Spinner />}
-          {alert && <p>{alert}</p>}
-          {error && <p>{error}</p>}
           <input
             className="login-field"
             type="text"
@@ -111,6 +111,11 @@ const SignUp = ({
           </p>
         </form>
       </div>
+      <StyledSection>
+        {error && <Error error={error} />}
+        {alert && <Alert alert={alert} />}
+        {isLoading && <Spinner />}
+      </StyledSection>
     </DivWithBackground>
   );
 };

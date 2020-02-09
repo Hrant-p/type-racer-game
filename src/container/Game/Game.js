@@ -21,6 +21,9 @@ import { currentUserSelector } from '../../store/selectors/userSelector';
 import { calculateWPM, completionPercentCalc } from '../../utils';
 import Timer from '../Timer/Timer';
 import { useInterval } from '../../customHooks/useInterval';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import Error from "../../components/Error/Error";
 
 const Game = ({
   user,
@@ -120,8 +123,11 @@ const Game = ({
 
   return (
     <div className="game">
-      Type Racer Game
-      {textLoading && <Spinner />}
+      <div>
+        <h3>Type Racer Game</h3>
+        {textError && <Error error={textError} />}
+        {textLoading && <Spinner />}
+      </div>
       <button type="button" onClick={startGame}>
         Start New Game
       </button>
@@ -136,11 +142,12 @@ const Game = ({
           </div>
           <p>{randomText}</p>
           <hr />
-          <p>
-            Completion percent -
-            {' '}
-            {`${completionPercent}%`}
-          </p>
+          <div style={{ width: '100px', margin: '1.25rem auto'}}>
+            <CircularProgressbar
+                value={completionPercent}
+                text={`${completionPercent}%`}
+            />
+          </div>
           <input
             ref={inputElement}
             type="text"

@@ -16,6 +16,9 @@ import {
 } from '../../store/selectors/userSelector';
 import { userLoginRequest } from '../../store/actions/userActionCreators';
 import Spinner from '../../components/Spinner/Spinner';
+import Error from '../../components/Error/Error';
+import Alert from '../../components/Alert/Alert';
+import StyledSection from "../../components/StyledSection/StyledSection";
 
 const Login = ({
   userLoginActionCreator,
@@ -43,12 +46,11 @@ const Login = ({
 
   return (
     <DivWithBackground bgImage={img}>
-      {error && <p>{error}</p>}
       <div className="login-area">
         <form onSubmit={e => handleSubmit(e)}>
-          {isLoading && <Spinner />}
-          {alert && <p className="alert">{alert}</p>}
-          {alert && <p className="error">{error}</p>}
+          <h2 style={{color: 'white'}}>
+            Login here
+          </h2>
           <input
             className="login-field"
             type="email"
@@ -79,6 +81,11 @@ const Login = ({
           </p>
         </form>
       </div>
+      <StyledSection>
+        {error && <Error error={error} />}
+        {alert && <Alert alert={alert} />}
+        {isLoading && <Spinner />}
+      </StyledSection>
     </DivWithBackground>
   );
 };
