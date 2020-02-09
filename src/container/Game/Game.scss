@@ -1,10 +1,12 @@
 .game {
   width: 90vw;
-  height: 500px;
   border: 1px solid darkred;
   background-color: bisque;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
   .type-field {
     width: 400px;
     height: 40px;
