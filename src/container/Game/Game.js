@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
+import { CircularProgressbar } from 'react-circular-progressbar';
 import {
   clearRandomText,
   getLastWpmResult,
@@ -21,9 +22,9 @@ import { currentUserSelector } from '../../store/selectors/userSelector';
 import { calculateWPM, completionPercentCalc } from '../../utils';
 import Timer from '../Timer/Timer';
 import { useInterval } from '../../customHooks/useInterval';
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import Error from "../../components/Error/Error";
+import Error from '../../components/Error/Error';
+import markTextMatches from "../../utils/markTextMatches";
 
 const Game = ({
   user,
@@ -102,7 +103,11 @@ const Game = ({
     id = setTimeout(startTimer, 4000);
   };
 
-  useInterval(() => setStopWatch(stopWatch + 1), tick);
+  useInterval(() => {
+    if (stopWatch < secondsInterval) {
+      setStopWatch(stopWatch + 1);
+    }
+  }, tick);
 
   useEffect(() => {
     if (randomText === alreadyTypedText) {
@@ -140,12 +145,12 @@ const Game = ({
               toggle={timerToggle}
             />
           </div>
-          <p>{randomText}</p>
+          {markTextMatches(randomText, alreadyTypedText, text)}
           <hr />
-          <div style={{ width: '100px', margin: '1.25rem auto'}}>
+          <div style={{ width: '100px', margin: '1.25rem auto' }}>
             <CircularProgressbar
-                value={completionPercent}
-                text={`${completionPercent}%`}
+              value={completionPercent}
+              text={`${completionPercent}%`}
             />
           </div>
           <input
@@ -176,7 +181,7 @@ Game.propTypes = {
 };
 
 Game.defaultProps = {
-  randomText: null,
+  randomText: '',
   lastResult: null,
   textError: null
 };
