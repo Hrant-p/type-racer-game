@@ -20,7 +20,7 @@ const Footer = () => (
     <StyledP>
       {new Date().getFullYear()}
       {' '}
-© ✨ Developed with React & Redux By Hrant Poghosyan 👌
+© ✨ Created with React & Redux By Hrant Poghosyan 👌
     </StyledP>
   </div>
 );

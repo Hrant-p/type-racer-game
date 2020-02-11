@@ -1,34 +1,30 @@
 import React from 'react';
 
-export default function (text = '', typed = '', value = '') {
-  if (!typed.length || !text.length) {
+export default (
+  text = '',
+  typed = '',
+  value = ''
+) => {
+  let j = 0;
+  let commonId;
+
+  if (!value && !typed) {
     return <p>{text}</p>;
   }
 
-  let lastId; let i = 0; let j = 0;
-  let newId;
+  const allText = String.prototype.concat(typed, value);
 
-  for (; i < typed.length; i++) {
-    if (typed[i] === text[i]) {
-      lastId = i;
+  for (; j < allText.length; j++) {
+    if (text[j] !== allText[j]) break;
+    if (text[j] === allText[j]) {
+      commonId = j;
     }
   }
-
-  for (; j < value.length; j++) {
-    if (value[j] === text[j + 1 + lastId]) {
-      newId = j;
-    }
-  }
-  if (newId || newId === 0) {
-    lastId += newId + 1;
-  }
-
-  const newText = (<mark>{text.slice(0, lastId + 1)}</mark>);
 
   return (
     <p>
-      {newText}
-      {text.slice(lastId + 1)}
+      <mark>{text.slice(0, commonId + 1)}</mark>
+      {text.slice(commonId + 1)}
     </p>
   );
-}
+};
