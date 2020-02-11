@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,7 +24,7 @@ import Timer from '../Timer/Timer';
 import { useInterval } from '../../customHooks/useInterval';
 import 'react-circular-progressbar/dist/styles.css';
 import Error from '../../components/Error/Error';
-import markTextMatches from "../../utils/markTextMatches";
+import markTextMatches from '../../utils/markTextMatches';
 
 const Game = ({
   user,
@@ -58,9 +58,7 @@ const Game = ({
       setAlreadyTypedText(alreadyTypedText.concat(value));
       setText('You Are Successfully Finished...!');
       inputElement.current.setAttribute('disabled', 'true');
-    }
-
-    if (value[i] === ' ' && color) {
+    } else if (value[i] === ' ' && color) {
       setAlreadyTypedText(alreadyTypedText.concat(value));
       setText('');
     }
@@ -145,7 +143,9 @@ const Game = ({
               toggle={timerToggle}
             />
           </div>
-          {markTextMatches(randomText, alreadyTypedText, text)}
+          <div className="text-area">
+            {markTextMatches(randomText, alreadyTypedText, text)}
+          </div>
           <hr />
           <div style={{ width: '100px', margin: '1.25rem auto' }}>
             <CircularProgressbar

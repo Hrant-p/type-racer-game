@@ -27,7 +27,7 @@ function* getRandomText() {
         }
       )
     );
-    yield put(getRandomTextRequestSuccess(data));
+    yield put(getRandomTextRequestSuccess(data.replace(/  +/g, ' ')));
     yield put(setTextLoadingState(false));
   } catch (e) {
     yield put(setTextLoadingState(false));
