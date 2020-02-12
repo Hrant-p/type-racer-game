@@ -20,20 +20,22 @@ const Timer = ({ seconds, delay, toggle }) => {
     }
   }, [toggle, seconds]);
 
-  if (toggle) {
-    return (
-      <h4>
-        {count || 'Go!'}
-      </h4>
-    );
-  }
+  let secondsForDrawing = (count - minutes * 60);
+  let timeField = count ? (
+    `${minutes}: ${secondsForDrawing < 10 ? (
+      `0${secondsForDrawing}`
+    ) : secondsForDrawing}`
+  ) : (' Time has finished !');
 
-  return count
-    ? (
-      <h5>
-        {`${minutes}: ${count - minutes * 60}`}
-      </h5>
-    ) : <p>Time has finished !</p>;
+  return (
+    <p>
+      <b>
+        {toggle ? (
+          count || 'Go!'
+        ) : timeField}
+      </b>
+    </p>
+  );
 };
 
 Timer.propTypes = {

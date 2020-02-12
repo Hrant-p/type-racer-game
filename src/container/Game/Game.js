@@ -151,7 +151,7 @@ const Game = ({
             {markTextMatches(randomText, alreadyTypedText, text)}
           </div>
           <hr />
-          <div style={{ width: '100px', margin: '1.25rem auto' }}>
+          <div className="progress-bar">
             <CircularProgressbar
               value={completionPercent}
               text={`${completionPercent}%`}
