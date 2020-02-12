@@ -28,6 +28,7 @@ import markTextMatches from '../../utils/markTextMatches';
 
 const Game = ({
   user,
+  children,
   randomText,
   lastResult,
   textLoading,
@@ -115,17 +116,20 @@ const Game = ({
       setDelay(null);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
+    return () => clearTimeout(id);
   }, [
     randomText,
     user,
     putLastWpmResultRequestActionCreator,
     alreadyTypedText,
     stopWatch,
-    tick
+    tick,
+    id
   ]);
 
   return (
     <div className="game">
+      {children}
       <div>
         <h3>Type Racer Game</h3>
         {textError && <Error error={textError} />}

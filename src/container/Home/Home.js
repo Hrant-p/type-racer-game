@@ -8,14 +8,26 @@ import DivWithBackground from '../../components/DivWithBackground/DivWithBackgro
 import Game from '../Game/Game';
 import { currentUserSelector } from '../../store/selectors/userSelector';
 import { lastResultSelector } from '../../store/selectors/textSelector';
+import Profile from '../../components/Profile/Profile';
 
-const Home = ({ user, lastTypeResult, lastResult }) => {
-  let result = user.get('lastTypeResult') ? user.get('lastTypeResult') : lastResult;
+const Home = ({ user, lastResult }) => {
+  let result;
+  if (lastResult === null) {
+    result = user.get('lastTypeResult');
+  } else if (user.get('lastTypeResult') === null) {
+    result = lastResult;
+  } else if (user.get('lastTypeResult') !== null) {
+    result = lastResult;
+  }
 
   return (
     <DivWithBackground bgImage={bgImage}>
-      {result}
-      <Game />
+      <Game>
+        <Profile
+          user={user}
+          result={result}
+        />
+      </Game>
     </DivWithBackground>
   );
 };
