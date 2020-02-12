@@ -32,9 +32,10 @@ $txt-color: rgba(198, 158, 131, 0.91);
       align-items: center;
       flex-direction: column;
     }
-    &:hover {
-      box-shadow: $bg-shadow;
-    }
+  }
+
+  hr {
+    border: 1px dotted midnightblue;
   }
 
   .text-area {
@@ -47,11 +48,6 @@ $txt-color: rgba(198, 158, 131, 0.91);
     &:hover {
       box-shadow: $bg-shadow;
     }
-  }
-
-  .starter-btn {
-    width: 100px;
-    height: 35px;
   }
 
   .time-area {
@@ -88,12 +84,12 @@ $txt-color: rgba(198, 158, 131, 0.91);
       }
       transition: ease-out 0.2s;
       @media screen and (max-width: 760px) {
-        width: 200px;
-        height: 20px;
+        width: 250px;
+        height: 25px;
         padding: 1px;
         font-size: 1.25rem;
       }
-      border: 2px solid #1b6c64;
+      border: 1px solid #1b6c64;
       font-size: 1.75rem;
       border-radius: 5px;
     }

@@ -25,6 +25,7 @@ import { useInterval } from '../../customHooks/useInterval';
 import 'react-circular-progressbar/dist/styles.css';
 import Error from '../../components/Error/Error';
 import markTextMatches from '../../utils/markTextMatches';
+import Button from '../../components/Button/Button';
 
 let id;
 
@@ -131,13 +132,10 @@ const Game = ({
     <div className="game">
       <div className="profile-and-btn">
         {children}
-        <button
-          type="button"
-          className="starter-btn"
+        <Button
           onClick={startGame}
-        >
-          New Game
-        </button>
+          content="New Game"
+        />
       </div>
       {textError && <Error error={textError} />}
       {textLoading && <Spinner />}

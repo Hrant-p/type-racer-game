@@ -1,0 +1,21 @@
+@import "../../container/Game/Game";
+
+.designed-btn {
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  transition: $transition;
+  cursor: pointer;
+  border: outset;
+  font-weight: bold;
+  &:active {
+    background-color: blueviolet;
+    border: none;
+  }
+  &:hover {
+    background-color: midnightblue;
+    color: $txt-color;
+    box-shadow: $bg-shadow;
+    border: inset;
+  }
+}

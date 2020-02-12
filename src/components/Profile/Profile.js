@@ -9,12 +9,12 @@ const Profile = ({ user, result }) => (
       <h3>Profile</h3>
       <p>
         <b>
-          {`Name - ${user.get('nickname')}`}
+          {`Name: ${user.get('nickname')}`}
           <br />
-          {`Email - ${user.get('login')}`}
+          {`Email: ${user.get('login')}`}
         </b>
         <br />
-        {result && `Last Typing WPM Result - ${result}`}
+        {result && `Last Typing WPM Result: ${result}`}
       </p>
       <br />
     </aside>

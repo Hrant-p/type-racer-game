@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isAuthSelector } from '../../store/selectors/userSelector';
 import { userSignOut } from '../../store/actions/userActionCreators';
+import Button from '../../components/Button/Button';
 
 const Nav = ({ isAuth, userSignOutActionCreator }) => {
   const handleSignOut = () => {
@@ -30,12 +31,10 @@ const Nav = ({ isAuth, userSignOutActionCreator }) => {
         <li><Link to="/about">About</Link></li>
         {isAuth && (
           <li>
-            <button
-              type="button"
+            <Button
               onClick={handleSignOut}
-            >
-                            Sign Out
-            </button>
+              content="Sign Out"
+            />
           </li>
         )}
       </ul>
