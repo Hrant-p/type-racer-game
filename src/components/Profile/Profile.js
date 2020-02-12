@@ -6,14 +6,17 @@ import './Profile.scss';
 const Profile = ({ user, result }) => (
   <section className="profile">
     <aside>
-      <h5>Profile</h5>
-      <b>
-        {`Name - ${user.get('nickname')}`}
+      <h3>Profile</h3>
+      <p>
+        <b>
+          {`Name - ${user.get('nickname')}`}
+          <br />
+          {`Email - ${user.get('login')}`}
+        </b>
         <br />
-        {`Email - ${user.get('login')}`}
-      </b>
+        {result && `Last Typing WPM Result - ${result}`}
+      </p>
       <br />
-      {result && `Last Typing WPM Result - ${result}`}
     </aside>
   </section>
 );

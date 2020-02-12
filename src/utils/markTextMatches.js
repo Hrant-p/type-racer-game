@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const P = styled.p`
   user-select: none;
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin: 0;
   @media screen and (max-width: 760px) {
       font-size: 1rem;

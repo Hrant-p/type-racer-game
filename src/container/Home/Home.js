@@ -22,9 +22,6 @@ const Home = ({ user, lastResult }) => {
   return (
     <DivWithBackground bgImage={bgImage}>
       <Game>
-        <h4 style={{margin: '2px'}}>
-          Type Racer Game
-        </h4>
         <Profile
           user={user}
           result={result}

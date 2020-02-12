@@ -130,10 +130,8 @@ const Game = ({
   return (
     <div className="game">
       {children}
-      <div>
-        {textError && <Error error={textError} />}
-        {textLoading && <Spinner />}
-      </div>
+      {textError && <Error error={textError} />}
+      {textLoading && <Spinner />}
       <button
         type="button"
         className="starter-btn"
@@ -150,25 +148,28 @@ const Game = ({
               toggle={timerToggle}
             />
           </div>
+          <hr />
           <div className="text-area">
             {markTextMatches(randomText, alreadyTypedText, text)}
           </div>
           <hr />
-          <div className="progress-bar">
-            <CircularProgressbar
-              value={completionPercent}
-              text={`${completionPercent}%`}
+          <div className="typing-area">
+            <div className="progress-bar">
+              <CircularProgressbar
+                value={completionPercent}
+                text={`${completionPercent}%`}
+              />
+            </div>
+            <input
+              ref={inputElement}
+              type="text"
+              className="type-field"
+              style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
+              value={text}
+              onChange={handleChange}
+              disabled={timerToggle}
             />
           </div>
-          <input
-            ref={inputElement}
-            type="text"
-            className="type-field"
-            style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
-            value={text}
-            onChange={handleChange}
-            disabled={timerToggle}
-          />
         </>
       )}
     </div>
