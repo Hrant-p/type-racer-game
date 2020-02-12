@@ -26,6 +26,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import Error from '../../components/Error/Error';
 import markTextMatches from '../../utils/markTextMatches';
 
+let id;
+
 const Game = ({
   user,
   children,
@@ -38,7 +40,7 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-  let id;
+
   const secondsInterval = 150;
   const inputElement = useRef(null);
   const [stopWatch, setStopWatch] = useState(0);
@@ -108,6 +110,8 @@ const Game = ({
     }
   }, tick);
 
+  useEffect(() => () => clearInterval(id), []);
+
   useEffect(() => {
     if (randomText === alreadyTypedText) {
       const finalInterval = stopWatch < secondsInterval ? stopWatch : secondsInterval;
@@ -116,22 +120,18 @@ const Game = ({
       setDelay(null);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
-    return () => clearTimeout(id);
   }, [
     randomText,
     user,
     putLastWpmResultRequestActionCreator,
     alreadyTypedText,
     stopWatch,
-    tick,
-    id
   ]);
 
   return (
     <div className="game">
       {children}
       <div>
-        <h3>Type Racer Game</h3>
         {textError && <Error error={textError} />}
         {textLoading && <Spinner />}
       </div>
@@ -142,7 +142,7 @@ const Game = ({
         <>
           <div className="time-area">
             <Timer
-              secondsInterval={secondsInterval}
+              seconds={secondsInterval}
               delay={delay}
               toggle={timerToggle}
             />

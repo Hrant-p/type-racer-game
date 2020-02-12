@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import './Home.scss';
 import { connect } from 'react-redux';
 import bgImage from '../../img/coder.jpeg';
 import DivWithBackground from '../../components/DivWithBackground/DivWithBackground';
@@ -23,6 +22,9 @@ const Home = ({ user, lastResult }) => {
   return (
     <DivWithBackground bgImage={bgImage}>
       <Game>
+        <h4 style={{margin: '2px'}}>
+          Type Racer Game
+        </h4>
         <Profile
           user={user}
           result={result}

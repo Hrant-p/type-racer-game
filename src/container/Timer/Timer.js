@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useInterval } from '../../customHooks/useInterval';
 
-const Timer = ({ secondsInterval, delay, toggle }) => {
-  const [count, setCount] = useState(secondsInterval);
+const Timer = ({ seconds, delay, toggle }) => {
+  const [count, setCount] = useState(seconds);
   const minutes = Math.floor(count / 60);
 
   useInterval(() => {
@@ -16,9 +16,9 @@ const Timer = ({ secondsInterval, delay, toggle }) => {
     if (toggle) {
       setCount(3);
     } else {
-      setCount(150);
+      setCount(seconds);
     }
-  }, [toggle, secondsInterval]);
+  }, [toggle, seconds]);
 
   if (toggle) {
     return (
@@ -37,7 +37,7 @@ const Timer = ({ secondsInterval, delay, toggle }) => {
 };
 
 Timer.propTypes = {
-  secondsInterval: PropTypes.number.isRequired,
+  seconds: PropTypes.number.isRequired,
   delay: PropTypes.number
 };
 
