@@ -1,14 +1,41 @@
 $blue-bg: rgba(0, 186, 186, 0.78);
-$bg-shadow: 0px 0px 18px 8px silver;
+$bg-shadow: 0px 0px 16px 6px gray;
 $transition: ease-out 0.2s;
 $txt-shadow: 4px 4px 7px black;
+$txt-color: rgba(198, 158, 131, 0.91);
 
 .game {
   width: 90vw;
-  border: 1px solid darkred;
-  padding: 1.25rem;
+  background-color: rgba(9, 9, 34, 0.66);
+  border-radius: 5px;
+  padding: 5px 10px;
   max-height: 760px;
   transition: $transition;
+  .fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s linear 300ms, opacity 300ms;
+  }
+  .fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s linear 0s, opacity 300ms;
+  }
+
+  .profile-and-btn {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: $transition;
+    @media screen and (max-width: 700px) {
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    &:hover {
+      box-shadow: $bg-shadow;
+    }
+  }
 
   .text-area {
     border: 2px solid midnightblue;
@@ -25,6 +52,18 @@ $txt-shadow: 4px 4px 7px black;
   .starter-btn {
     width: 100px;
     height: 35px;
+  }
+
+  .time-area {
+    p.timer {
+      margin: 2.5px 5px;
+      display: flex;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $txt-color;
+      text-shadow: $txt-shadow;
+    }
   }
 
   .typing-area {

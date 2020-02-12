@@ -28,12 +28,10 @@ const Timer = ({ seconds, delay, toggle }) => {
   ) : (' Time has finished !');
 
   return (
-    <p>
-      <b>
+    <p className="timer">
         {toggle ? (
           count || 'Go!'
         ) : timeField}
-      </b>
     </p>
   );
 };

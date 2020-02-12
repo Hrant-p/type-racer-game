@@ -129,49 +129,51 @@ const Game = ({
 
   return (
     <div className="game">
-      {children}
+      <div className="profile-and-btn">
+        {children}
+        <button
+          type="button"
+          className="starter-btn"
+          onClick={startGame}
+        >
+          New Game
+        </button>
+      </div>
       {textError && <Error error={textError} />}
       {textLoading && <Spinner />}
-      <button
-        type="button"
-        className="starter-btn"
-        onClick={startGame}
-      >
-        Start New Game
-      </button>
-      {showGameContent && (
-        <>
-          <div className="time-area">
+      <div className={showGameContent ? 'fadeIn' : 'fadeOut'}>
+        <div className="time-area">
+          {!textError && (
             <Timer
               seconds={secondsInterval}
               delay={delay}
               toggle={timerToggle}
             />
-          </div>
-          <hr />
-          <div className="text-area">
-            {markTextMatches(randomText, alreadyTypedText, text)}
-          </div>
-          <hr />
-          <div className="typing-area">
-            <div className="progress-bar">
-              <CircularProgressbar
-                value={completionPercent}
-                text={`${completionPercent}%`}
-              />
-            </div>
-            <input
-              ref={inputElement}
-              type="text"
-              className="type-field"
-              style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
-              value={text}
-              onChange={handleChange}
-              disabled={timerToggle}
+          )}
+        </div>
+        <hr />
+        <div className="text-area">
+          {markTextMatches(randomText, alreadyTypedText, text)}
+        </div>
+        <hr />
+        <div className="typing-area">
+          <div className="progress-bar">
+            <CircularProgressbar
+              value={completionPercent}
+              text={`${completionPercent}%`}
             />
           </div>
-        </>
-      )}
+          <input
+            ref={inputElement}
+            type="text"
+            className="type-field"
+            style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
+            value={text}
+            onChange={handleChange}
+            disabled={timerToggle}
+          />
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,9 +5,6 @@
   color: whitesmoke;
   max-width: 250px;
 
-  &:hover {
-    box-shadow: $bg-shadow;
-  }
   aside {
     padding: 5px;
     border-radius: 7.5px;
@@ -15,6 +12,7 @@
     p {
       margin: 5px auto;
       text-shadow: $txt-shadow;
+      color: $txt-color;
     }
     h3 {
       margin: 2px;
