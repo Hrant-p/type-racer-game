@@ -1,3 +1,19 @@
-.profile {
+@import '../../container/Game/Game';
 
+.profile {
+  transition: $transition;
+  color: whitesmoke;
+  &:hover {
+    box-shadow: $bg-shadow;
+  }
+  aside {
+    padding: 5px;
+    border: 1px solid darkblue;
+    border-radius: 7.5px;
+    text-align: center;
+    transition: $transition;
+    h5 {
+      margin: 2px;
+    }
+  }
 }

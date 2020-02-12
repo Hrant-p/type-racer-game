@@ -40,7 +40,6 @@ const Game = ({
   getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
-
   const secondsInterval = 150;
   const inputElement = useRef(null);
   const [stopWatch, setStopWatch] = useState(0);
@@ -135,7 +134,11 @@ const Game = ({
         {textError && <Error error={textError} />}
         {textLoading && <Spinner />}
       </div>
-      <button type="button" onClick={startGame}>
+      <button
+        type="button"
+        className="starter-btn"
+        onClick={startGame}
+      >
         Start New Game
       </button>
       {showGameContent && (

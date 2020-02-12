@@ -1,23 +1,33 @@
+$blue-bg: rgba(0, 186, 186, 0.78);
+$bg-shadow: 1px 1px 1px silver;
+$transition: ease-out 0.2s;
+
 .game {
   width: 90vw;
   border: 1px solid darkred;
-  background-color: bisque;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1.25rem;
   max-height: 760px;
+  transition: $transition;
 
   .text-area {
     border: 2px solid midnightblue;
     border-radius: 5px;
     padding: 1.25rem;
-    background-color: rgba(0, 186, 186, 0.78);
-    box-shadow: 1px 1px 1px 1px silver;
+    background-color: $blue-bg;
+    box-shadow: $bg-shadow;
+    transition: $transition;
+    cursor: not-allowed;
     &:hover {
       box-shadow: 2.5px 2.5px 2.5px 2.5px silver;
     }
+  }
+
+  .starter-btn {
+
   }
 
   .progress-bar {
@@ -33,6 +43,10 @@
     width: 400px;
     height: 40px;
     padding: 1.5px;
+    &:hover {
+      box-shadow: $bg-shadow;
+    }
+    transition: ease-out 0.2s;
     @media screen and (max-width: 760px) {
       width: 200px;
       height: 20px;
