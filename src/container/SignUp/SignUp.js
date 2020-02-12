@@ -102,8 +102,8 @@ const SignUp = ({
           />
           <input
             type="submit"
-            value="Login"
-            className="btn-submit"
+            value="Sign Up"
+            className="designed-btn"
           />
           <p className="">
             Already have an account?

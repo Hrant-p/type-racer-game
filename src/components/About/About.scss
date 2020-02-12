@@ -1,0 +1,16 @@
+@import "../../container/Game/Game";
+
+.about {
+  width: 50vw;
+  background-color: rgba(9, 9, 34, 0.89);
+  border-radius: 5px;
+  padding: 5px 10px;
+  max-height: 760px;
+  transition: $transition;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  p {
+    color: $txt-color;
+  }
+}

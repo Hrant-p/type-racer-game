@@ -1,3 +1,5 @@
+@import "../Game/Game";
+
 .login-area {
 
   form {
@@ -12,17 +14,13 @@
       width: 300px;
       height: 30px;
       margin: 7.5px;
+      text-shadow: $txt-shadow;
       font-size: 1.3em;
       border-radius: 5px;
-    }
-
-    .btn-submit {
-      width: 175px;
-      height: 30px;
-      min-width: 100px;
-      margin: 7.5px;
-      border-radius: 5px;
-      font-size: 1.3em;
+      border: inset;
+      &:hover {
+        box-shadow: $bg-shadow;
+      }
     }
   }
   border: 1px solid greenyellow;

@@ -73,7 +73,7 @@ const Login = ({
           <input
             type="submit"
             value="Login"
-            className="btn-submit"
+            className="designed-btn"
           />
           <p className="">
             {"Don't have an account? "}

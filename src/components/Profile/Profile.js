@@ -14,7 +14,7 @@ const Profile = ({ user, result }) => (
           {`Email: ${user.get('login')}`}
         </b>
         <br />
-        {result && `Last Typing WPM Result: ${result}`}
+        {`Last Typing WPM Result: ${result === null ? 'No result' : result}`}
       </p>
       <br />
     </aside>

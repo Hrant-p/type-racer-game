@@ -105,7 +105,7 @@ const Game = ({
   };
 
   useInterval(() => {
-    if (stopWatch < secondsInterval) {
+    if (stopWatch <= secondsInterval) {
       setStopWatch(stopWatch + 1);
     }
   }, tick);
@@ -113,12 +113,19 @@ const Game = ({
   useEffect(() => () => clearInterval(id), []);
 
   useEffect(() => {
+    console.log(stopWatch);
+
     if (randomText === alreadyTypedText) {
       const finalInterval = stopWatch < secondsInterval ? stopWatch : secondsInterval;
       const result = calculateWPM(finalInterval, alreadyTypedText);
       setTick(null);
       setDelay(null);
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
+    }
+    if (stopWatch > secondsInterval && randomText !== alreadyTypedText) {
+      const calculatedValue = calculateWPM(stopWatch, alreadyTypedText);
+      putLastWpmResultRequestActionCreator(calculatedValue, user.get('nickname'));
+      setTick(null);
     }
   }, [
     randomText,
@@ -168,7 +175,7 @@ const Game = ({
             style={{ backgroundColor: color ? 'lightgreen' : 'lightpink' }}
             value={text}
             onChange={handleChange}
-            disabled={timerToggle}
+            disabled={timerToggle || !tick}
           />
         </div>
       </div>

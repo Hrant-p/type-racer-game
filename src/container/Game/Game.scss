@@ -39,6 +39,7 @@ $txt-color: rgba(198, 158, 131, 0.91);
   }
 
   .text-area {
+    min-height: 50px;
     border: 2px solid midnightblue;
     border-radius: 5px;
     padding: 10px;
@@ -89,7 +90,7 @@ $txt-color: rgba(198, 158, 131, 0.91);
         padding: 1px;
         font-size: 1.25rem;
       }
-      border: 1px solid #1b6c64;
+      border: 1px inset #1b6c64;
       font-size: 1.75rem;
       border-radius: 5px;
     }
