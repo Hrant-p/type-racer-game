@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "790458f689bb31ef2c8b4547db2d0466",
+    "revision": "dbc8b8b14b2494c318f9e227e2a93d42",
     "url": "/type-racer-game/index.html"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/type-racer-game/static/css/6.031c8ad0.chunk.css"
   },
   {
-    "revision": "005efb8ef982e76b5756",
+    "revision": "bf45823f7442d2f94e92",
     "url": "/type-racer-game/static/css/main.56fce5ad.chunk.css"
   },
   {
@@ -52,8 +52,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/type-racer-game/static/js/7.c29c539d.chunk.js"
   },
   {
-    "revision": "005efb8ef982e76b5756",
-    "url": "/type-racer-game/static/js/main.6a28ff6a.chunk.js"
+    "revision": "bf45823f7442d2f94e92",
+    "url": "/type-racer-game/static/js/main.4e4ecbda.chunk.js"
   },
   {
     "revision": "15a2ef5e482f84747c64",

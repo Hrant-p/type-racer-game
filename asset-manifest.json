@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/type-racer-game/static/css/main.56fce5ad.chunk.css",
-    "main.js": "/type-racer-game/static/js/main.6a28ff6a.chunk.js",
-    "main.js.map": "/type-racer-game/static/js/main.6a28ff6a.chunk.js.map",
+    "main.js": "/type-racer-game/static/js/main.4e4ecbda.chunk.js",
+    "main.js.map": "/type-racer-game/static/js/main.4e4ecbda.chunk.js.map",
     "runtime-main.js": "/type-racer-game/static/js/runtime-main.fd831dc5.js",
     "runtime-main.js.map": "/type-racer-game/static/js/runtime-main.fd831dc5.js.map",
     "static/js/2.45d0311b.chunk.js": "/type-racer-game/static/js/2.45d0311b.chunk.js",
@@ -22,7 +22,7 @@
     "static/js/7.c29c539d.chunk.js": "/type-racer-game/static/js/7.c29c539d.chunk.js",
     "static/js/7.c29c539d.chunk.js.map": "/type-racer-game/static/js/7.c29c539d.chunk.js.map",
     "index.html": "/type-racer-game/index.html",
-    "precache-manifest.8e40d28370d75857154eec8dbc0b08a5.js": "/type-racer-game/precache-manifest.8e40d28370d75857154eec8dbc0b08a5.js",
+    "precache-manifest.669cd0fcca140852db3086357a969216.js": "/type-racer-game/precache-manifest.669cd0fcca140852db3086357a969216.js",
     "service-worker.js": "/type-racer-game/service-worker.js",
     "static/css/3.c51a11e5.chunk.css.map": "/type-racer-game/static/css/3.c51a11e5.chunk.css.map",
     "static/css/4.653ff131.chunk.css.map": "/type-racer-game/static/css/4.653ff131.chunk.css.map",
@@ -39,6 +39,6 @@
     "static/js/runtime-main.fd831dc5.js",
     "static/js/2.45d0311b.chunk.js",
     "static/css/main.56fce5ad.chunk.css",
-    "static/js/main.6a28ff6a.chunk.js"
+    "static/js/main.4e4ecbda.chunk.js"
   ]
 }
