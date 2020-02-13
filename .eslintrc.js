@@ -31,7 +31,6 @@ module.exports = {
     "arrow-parens": "off",
     "react/jsx-fragments": 0,
     "react/prop-types": 0,
-    // "react/require-default-props": 0
     "comma-dangle": "off"
   }
 };

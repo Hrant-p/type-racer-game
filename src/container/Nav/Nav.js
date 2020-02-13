@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { isAuthSelector } from '../../store/selectors/userSelector';
 import { userSignOut } from '../../store/actions/userActionCreators';
 import Button from '../../components/Button/Button';
-import icon from '../../img/icon.png'
+import icon from '../../img/icon.png';
 
 const Nav = ({ isAuth, userSignOutActionCreator }) => {
   const handleSignOut = () => {
@@ -19,7 +19,9 @@ const Nav = ({ isAuth, userSignOutActionCreator }) => {
     <nav className="head-block">
       <ul>
         <li>
-          <img src={icon} alt="icon" />
+          <Link to="/">
+            <img src={icon} alt="icon" />
+          </Link>
         </li>
         <li>
           <Link to="/home">Home</Link>

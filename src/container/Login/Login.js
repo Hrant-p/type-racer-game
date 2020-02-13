@@ -48,9 +48,9 @@ const Login = ({
     <DivWithBackground bgImage={img}>
       <div className="login-area">
         <form onSubmit={e => handleSubmit(e)}>
-          <h2 style={{color: 'white'}}>
+          <h3>
             Login here
-          </h2>
+          </h3>
           <input
             className="login-field"
             type="email"

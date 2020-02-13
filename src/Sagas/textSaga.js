@@ -56,7 +56,6 @@ function* putLastWpmResult({ payload: { result, userName } }) {
   } catch (e) {
     yield put(setTextLoadingState(false));
     yield put(setTextErrorState(e.message));
-    console.log(e);
   }
 }
 

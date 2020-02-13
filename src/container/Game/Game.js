@@ -116,13 +116,15 @@ const Game = ({
       const result = calculateWPM(finalInterval, alreadyTypedText);
       setTick(null);
       setDelay(null);
+      if (stopWatch < secondsInterval) {
+        setText('Respect. You have finished ahead of schedule !');
+      }
       putLastWpmResultRequestActionCreator(result, user.get('nickname'));
     }
     if (stopWatch > secondsInterval && randomText !== alreadyTypedText) {
       const calculatedValue = calculateWPM(stopWatch, alreadyTypedText);
       putLastWpmResultRequestActionCreator(calculatedValue, user.get('nickname'));
       setTick(null);
-      setText('Respect. You have finished ahead of schedule !');
     }
   }, [
     randomText,
@@ -140,7 +142,7 @@ const Game = ({
           lastResult={lastResult}
           showEffect={!tick}
         />
-        <section className="profile" style={{textAlign: 'center'}}>
+        <section className="profile" style={{ textAlign: 'center' }}>
           <h3>Typing Game</h3>
           <p>Calculating Words Per Minute Text Type Average Speed</p>
           <hr />
@@ -196,8 +198,6 @@ Game.propTypes = {
   textLoading: PropTypes.bool.isRequired,
   textError: PropTypes.string,
   getRandomTextActionCreator: PropTypes.func.isRequired,
-  clearRandomTextCreator: PropTypes.func.isRequired,
-  getLastWpmResultActionCreator: PropTypes.func.isRequired,
   putLastWpmResultRequestActionCreator: PropTypes.func.isRequired
 };
 
