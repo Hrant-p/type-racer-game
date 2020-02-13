@@ -10,16 +10,17 @@ const About = lazy(() => import('../components/About/About'));
 const NotFound = lazy(() => import('../components/NotFound/NotFound'));
 
 const RoutesWithLazyLoading = () => (
-
-    <Suspense fallback={<Spinner />}>
+    <>
+      <Suspense fallback={<Spinner />}>
         <Switch>
           <PrivateRoute path="/home" component={Home} exact />
           <Route path="/(login||)" component={Login} exact />
           <Route path="/registration" component={SignUp} exact />
           <Route path="/about" component={About} exact />
           <Route component={NotFound} />
-      </Switch>
-    </Suspense>
+        </Switch>
+      </Suspense>
+    </>
 );
 
 export default RoutesWithLazyLoading;

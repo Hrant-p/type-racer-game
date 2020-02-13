@@ -1,5 +1,5 @@
 import {
-  all, put, call, takeLatest
+  all, put, call, takeLatest, delay
 } from 'redux-saga/effects';
 import { textTypes } from '../store/actions/types';
 import {
@@ -32,6 +32,8 @@ function* getRandomText() {
   } catch (e) {
     yield put(setTextLoadingState(false));
     yield put(setTextErrorState(e.message));
+    yield delay(3500);
+    yield put(setTextErrorState(null));
   }
 }
 
@@ -56,6 +58,8 @@ function* putLastWpmResult({ payload: { result, userName } }) {
   } catch (e) {
     yield put(setTextLoadingState(false));
     yield put(setTextErrorState(e.message));
+    yield delay(3500);
+    yield put(setTextErrorState(null));
   }
 }
 

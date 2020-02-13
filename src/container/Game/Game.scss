@@ -80,7 +80,7 @@ $txt-color: rgba(198, 158, 131, 0.91);
       width: 400px;
       height: 40px;
       padding: 1.5px;
-      border: 1px solid midnightblue;
+      border: 1px inset midnightblue;
       &:hover {
         box-shadow: $bg-shadow;
       }

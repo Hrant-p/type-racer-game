@@ -1,10 +1,12 @@
+@import "../../container/Game/Game";
+
 nav.head-block {
   width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
-  //justify-content: space-around;
   background-color: deepskyblue;
+  border-bottom: 0.5px solid rgba(3, 0, 33, 0.9);
   ul {
     display: flex;
     width: 74vw;
@@ -15,9 +17,23 @@ nav.head-block {
       list-style: none;
       margin: auto 15px;
       a {
+        font-weight: bold;
+        font-size: 1.25rem;
+        transition: $transition;
+        &:hover {
+          text-shadow: $txt-shadow;
+          color: white;
+          transition: $transition;
+        }
         margin: 0;
         padding: 0;
         text-decoration: none;
+      }
+    }
+    img {
+      transition: $transition;
+      &:hover {
+        transform: scale(1.2);
       }
     }
     button {

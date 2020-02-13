@@ -39,7 +39,8 @@ function* userLogin({ payload: { login, password } }) {
   } catch (e) {
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
-    console.log(e);
+    yield delay(3500);
+    yield put(setErrorState(null));
   }
 }
 
@@ -52,7 +53,6 @@ function* createNewUser({ payload: { newUser } }) {
       constructUrl([userApi.url, userApi.id], {})
     );
     data.push({ ...newUser, lastTypeResult: null });
-    console.log(data);
     yield call(
       request,
       'PUT',
@@ -71,6 +71,8 @@ function* createNewUser({ payload: { newUser } }) {
     yield put(setAuthState(false));
     yield put(setLoadingState(false));
     yield put(setErrorState(e.message));
+    yield delay(3500);
+    yield put(setErrorState(null));
   }
 }
 
