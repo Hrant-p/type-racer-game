@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../routing/PrivateRoute';
 import Spinner from '../components/Spinner/Spinner';
+import { Redirect } from 'react-router';
 
 const Home = lazy(() => import('../container/Home/Home'));
 const Login = lazy(() => import('../container/Login/Login'));
@@ -17,6 +18,7 @@ const RoutesWithLazyLoading = () => (
           <Route path="/(login||)" component={Login} exact />
           <Route path="/registration" component={SignUp} exact />
           <Route path="/about" component={About} exact />
+          <Route path="/type-racer-game/" component={() => <Redirect to="/home" />} exact />
           <Route component={NotFound} />
         </Switch>
       </Suspense>
