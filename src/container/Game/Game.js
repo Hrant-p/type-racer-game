@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './Game.scss';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -26,19 +25,18 @@ import 'react-circular-progressbar/dist/styles.css';
 import Error from '../../components/Error/Error';
 import markTextMatches from '../../utils/markTextMatches';
 import Button from '../../components/Button/Button';
+import Profile from '../../components/Profile/Profile';
+import './Game.scss';
 
 let id;
 
 const Game = ({
   user,
-  children,
   randomText,
   lastResult,
   textLoading,
   textError,
   getRandomTextActionCreator,
-  clearRandomTextCreator,
-  getLastWpmResultActionCreator,
   putLastWpmResultRequestActionCreator
 }) => {
   const secondsInterval = 150;
@@ -113,8 +111,6 @@ const Game = ({
   useEffect(() => () => clearInterval(id), []);
 
   useEffect(() => {
-    console.log(stopWatch);
-
     if (randomText === alreadyTypedText) {
       const finalInterval = stopWatch < secondsInterval ? stopWatch : secondsInterval;
       const result = calculateWPM(finalInterval, alreadyTypedText);
@@ -138,7 +134,16 @@ const Game = ({
   return (
     <div className="game">
       <div className="profile-and-btn">
-        {children}
+        <Profile
+          user={user}
+          lastResult={lastResult}
+          showEffect={!tick}
+        />
+        <section className="profile" style={{textAlign: 'center'}}>
+          <h3>Typing Game</h3>
+          <p>Calculating Words Per Minute Text Type Average Speed</p>
+          <hr />
+        </section>
         <Button
           onClick={startGame}
           content="New Game"

@@ -3,9 +3,19 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import './Profile.scss';
 
-const Profile = ({ user, result }) => (
-  <section className="profile">
-    <aside>
+const Profile = ({ user, lastResult, showEffect }) => {
+  let result;
+
+  if (lastResult === null) {
+    result = user.get('lastTypeResult');
+  } else if (user.get('lastTypeResult') === null) {
+    result = lastResult;
+  } else if (user.get('lastTypeResult') !== null) {
+    result = lastResult;
+  }
+
+  return (
+    <section className="profile">
       <h3>Profile</h3>
       <p>
         <b>
@@ -14,20 +24,23 @@ const Profile = ({ user, result }) => (
           {`Email: ${user.get('login')}`}
         </b>
         <br />
-        {`Last Typing WPM Result: ${result === null ? 'No result' : result}`}
+        <span className={showEffect ? 'result-area' : ''}>
+          {`Last Typing WPM Result: ${result === null ? 'No result' : result}`}
+        </span>
       </p>
       <br />
-    </aside>
-  </section>
-);
+    </section>
+  );
+};
 
 Profile.propTypes = {
   user: PropTypes.instanceOf(Immutable.Map).isRequired,
-  result: PropTypes.number,
+  lastResult: PropTypes.number,
+  showEffect: PropTypes.bool.isRequired
 };
 
 Profile.defaultProps = {
-  result: null
+  lastResult: null
 };
 
 export default Profile;

@@ -9,8 +9,10 @@ const About = () => (
       <p>&rarr; Contact Phone: +374-99-99-99</p>
       <p>&rarr; Email: hrant@live.ru</p>
       <p>&rarr; Address: Armenia. Yerevan</p>
-      <p>&rarr; Author: H. Poghosyan</p>
-        <p>✌✌✌</p>
+      <a href="https:/github.com/Hrant-p/type-racer-game">
+          &rarr; Author: H. Poghosyan
+      </a>
+      <span role="img" aria-label="ok">✌✌✌</span>
     </div>
   </DivWithBackground>
 );
