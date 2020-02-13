@@ -1,8 +1,9 @@
 @import "../../container/Game/Game";
+$secondary-bg-color: rgba(9, 9, 34, 0.89);
 
 .about {
   width: 50vw;
-  background-color: rgba(9, 9, 34, 0.89);
+  background-color: $secondary-bg-color;
   border-radius: 5px;
   padding: 5px 10px;
   max-height: 760px;

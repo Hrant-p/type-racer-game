@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { isAuthSelector } from '../../store/selectors/userSelector';
 import { userSignOut } from '../../store/actions/userActionCreators';
 import Button from '../../components/Button/Button';
+import icon from '../../img/icon.png'
 
 const Nav = ({ isAuth, userSignOutActionCreator }) => {
   const handleSignOut = () => {
@@ -17,7 +18,12 @@ const Nav = ({ isAuth, userSignOutActionCreator }) => {
   return (
     <nav className="head-block">
       <ul>
-        <li><Link to="/home">Home</Link></li>
+        <li>
+          <img src={icon} alt="icon" />
+        </li>
+        <li>
+          <Link to="/home">Home</Link>
+        </li>
         {!isAuth && (
           <>
             <li>
@@ -28,16 +34,16 @@ const Nav = ({ isAuth, userSignOutActionCreator }) => {
             </li>
           </>
         )}
-        <li><Link to="/about">About</Link></li>
-        {isAuth && (
-          <li>
-            <Button
-              onClick={handleSignOut}
-              content="Sign Out"
-            />
-          </li>
-        )}
+        <li>
+          <Link to="/about">About</Link>
+        </li>
       </ul>
+      {isAuth && (
+      <Button
+        onClick={handleSignOut}
+        content="Sign Out"
+      />
+      )}
     </nav>
   );
 };

@@ -18,7 +18,7 @@ import { userLoginRequest } from '../../store/actions/userActionCreators';
 import Spinner from '../../components/Spinner/Spinner';
 import Error from '../../components/Error/Error';
 import Alert from '../../components/Alert/Alert';
-import StyledSection from "../../components/StyledSection/StyledSection";
+import StyledSection from '../../components/StyledSection/StyledSection';
 
 const Login = ({
   userLoginActionCreator,
@@ -75,7 +75,7 @@ const Login = ({
             value="Login"
             className="designed-btn"
           />
-          <p className="">
+          <p className="form-bottom">
             {"Don't have an account? "}
             <Link to="/registration">Sign Up</Link>
           </p>

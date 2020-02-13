@@ -17,9 +17,9 @@ import {
   isLoadingSelector,
 } from '../../store/selectors/userSelector';
 import Spinner from '../../components/Spinner/Spinner';
-import StyledSection from "../../components/StyledSection/StyledSection";
-import Error from "../../components/Error/Error";
-import Alert from "../../components/Alert/Alert";
+import StyledSection from '../../components/StyledSection/StyledSection';
+import Error from '../../components/Error/Error';
+import Alert from '../../components/Alert/Alert';
 
 const SignUp = ({
   isAuth,
@@ -61,6 +61,7 @@ const SignUp = ({
   return (
     <DivWithBackground bgImage={img}>
       <div className="login-area">
+        <h3>Sign up here</h3>
         <form onSubmit={e => handleSubmit(e)}>
           <input
             className="login-field"
@@ -105,8 +106,9 @@ const SignUp = ({
             value="Sign Up"
             className="designed-btn"
           />
-          <p className="">
+          <p className="form-bottom">
             Already have an account?
+            {' '}
             <Link to="/login">Sign In</Link>
           </p>
         </form>

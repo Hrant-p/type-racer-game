@@ -1,7 +1,18 @@
 @import "../Game/Game";
+@import "../../components/About/About";
 
 .login-area {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $secondary-bg-color;
+  border-radius: 5px;
+  padding: 5px 10px;
+  max-height: 760px;
+  transition: ease-out 0.2s;
+  .form-bottom {
+    color: white;
+  }
   form {
     display: flex;
     flex-direction: column;
@@ -21,8 +32,11 @@
       &:hover {
         box-shadow: $bg-shadow;
       }
+      &::placeholder {
+        color: rgba(43, 43, 193, 0.29);
+        text-shadow: none;
+      }
     }
   }
-  border: 1px solid greenyellow;
 }
 

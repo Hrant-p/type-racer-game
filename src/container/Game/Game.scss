@@ -80,6 +80,7 @@ $txt-color: rgba(198, 158, 131, 0.91);
       width: 400px;
       height: 40px;
       padding: 1.5px;
+      border: 1px solid midnightblue;
       &:hover {
         box-shadow: $bg-shadow;
       }
@@ -90,7 +91,6 @@ $txt-color: rgba(198, 158, 131, 0.91);
         padding: 1px;
         font-size: 1.25rem;
       }
-      border: 1px inset #1b6c64;
       font-size: 1.75rem;
       border-radius: 5px;
     }

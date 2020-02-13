@@ -122,6 +122,7 @@ const Game = ({
       const calculatedValue = calculateWPM(stopWatch, alreadyTypedText);
       putLastWpmResultRequestActionCreator(calculatedValue, user.get('nickname'));
       setTick(null);
+      setText('Respect. You have finished ahead of schedule !');
     }
   }, [
     randomText,
