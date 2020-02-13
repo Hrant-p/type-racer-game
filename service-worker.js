@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/type-racer-game/precache-manifest.669cd0fcca140852db3086357a969216.js"
+  "/type-racer-game/precache-manifest.db2a5e4dea49e50c72ac03e54058db9c.js"
 );
 
 self.addEventListener('message', (event) => {
