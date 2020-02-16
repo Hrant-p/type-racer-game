@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    jest: true
   },
   extends: [
     'plugin:react/recommended',
@@ -20,6 +21,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'eslint-plugin-jest'
   ],
   "rules": {
     "max-len": [1, 120, 2, {

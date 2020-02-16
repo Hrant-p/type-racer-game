@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App correctly renders after relaunch 1`] = `
+Array [
+  <nav
+    className="head-block"
+  >
+    <ul>
+      <li>
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          <img
+            alt="icon"
+            src="icon.png"
+          />
+        </a>
+      </li>
+      <li>
+        <a
+          href="/home"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/login"
+          onClick={[Function]}
+        >
+          Login
+        </a>
+      </li>
+      <li>
+        <a
+          href="/registration"
+          onClick={[Function]}
+        >
+          SignUp
+        </a>
+      </li>
+      <li>
+        <a
+          href="/about"
+          onClick={[Function]}
+        >
+          About
+        </a>
+      </li>
+    </ul>
+  </nav>,
+  <div
+    className="loader"
+  />,
+  <div
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "indigo",
+        "display": "flex",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <p
+      className="sc-AykKC jCAioK"
+    >
+      2020
+       
+      © ✨ Created with React & Redux By Hrant Poghosyan 👌
+    </p>
+  </div>,
+]
+`;
