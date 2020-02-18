@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const DivWithBackground = styled.div`
-    background: url(${props => props.bgImage});
-    width: 100%;
-    min-height: 600px;
-    background-size: cover;
+    min-width: 100vw;
+    min-height: 90vh;
+    background: url(${props => props.bgImage}) no-repeat;
+    background-size: 100% 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
