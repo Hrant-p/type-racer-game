@@ -11,6 +11,7 @@ const StyledP = styled.p`
 
 const Footer = () => (
   <div style={{
+    height: '7.5vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
